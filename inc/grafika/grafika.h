@@ -1,5 +1,5 @@
-#ifndef OBRAZEK_H
-#define OBRAZEK_H
+#ifndef GRAFIKA_H
+#define GRAFIKA_H
 
 #include <SDL/SDL.h>
 
@@ -7,131 +7,127 @@
 // Funkce pro carove kresleni
 //
 
-#define BILA 255, 255, 255
-#define CERVENA 255, 0, 0
-#define ZELENA 0, 255, 0
-#define MODRA 0, 0, 255
-#define AZUROVA 0, 255, 255
-#define PURPUROVA 255, 0, 255
-#define CERNA 0, 0, 0
-#define ZLUTA 255, 255, 0
-float nahoda(float max);
+#define WHITE 255, 255, 255
+#define RED 255, 0, 0
+#define GREEN 0, 255, 0
+#define BLUE 0, 0, 255
+#define CYAN 0, 255, 255
+#define PURPLE 255, 0, 255
+#define BLACK 0, 0, 0
+#define YELLOW 255, 255, 0
+float random(float max);
 
 //
 // Zapouzdreni obrazovky
 //
 
-class Obrazovka
-{
+class Screen {
 public:
-	SDL_Surface *screen;
-	unsigned int w, h;
-	float x, y;
-	
-	static Obrazovka* instance();
-	void inicializuj(const unsigned int sirka, const unsigned int vyska, const unsigned int barvy, const unsigned int vlajky);
-	void umisti(float x, float y);
-	void pohni(float x, float y);
-	void aktualizuj();
-	Uint32 getpixel(int x, int y);
-	void putpixel(int x, int y, Uint32 pixel);
-	void zamkni();
-	void odemkni();
-	void smaz();
-protected:
-	Obrazovka();
-};
+    SDL_Surface* screen;
+    unsigned int w, h;
+    float x, y;
 
+    static Screen* instance();
+    void init(const unsigned int width, const unsigned int height, const unsigned int barvy, const unsigned int vlajky);
+    void place(float x, float y);
+    void move(float x, float y);
+    void update();
+    Uint32 get_pixel(int x, int y);
+    void put_pixel(int x, int y, Uint32 pixel);
+    void lock();
+    void unlock();
+    void remove();
+
+protected:
+    Screen();
+};
 
 //
 // Graficky objekt na obrazovce
 //
 
-class Obrazek
-{
+class Image {
 public:
-	// Vnitrni promenne objektu
-	SDL_Surface *surface;
-	Obrazovka *obrazovka;
-	float x, y, vx, vy, ax, ay, ox, oy;
-	int w, h;
-	
-	// Konstruktor
-	Obrazek();
+    // Vnitrni promenne objektu
+    SDL_Surface* surface;
+    Screen* screen;
+    float x, y, vx, vy, ax, ay, ox, oy;
+    int w, h;
 
-	// Destruktor
-	~Obrazek();
+    // Konstruktor
+    Image();
 
-	// Nacteni obrazku z disku do pameti
-	void nacti(const char *filename);
-	void nacti_animaci(char *filename, int w, int h);
+    // Destruktor
+    ~Image();
 
-	// Nedovol objektu opustit obrazovku
-	void meze();
-	
-	void pocatek(float px, float py);
+    // Nacteni obrazku z disku do pameti
+    void load(const char* filename);
+    void load_animation(char* filename, int w, int h);
 
-	// Presun objektu na zadane souradnice
-	void umisti(float px, float py);
+    // Nedovol objektu opustit obrazovku
+    void bounds();
 
-	// Pohyb objektu o zadanou vzdalenost
-	void pohni(float px, float py);
+    void origin(float px, float py);
 
-	// Nastav rychlost automatickeho pohybu
-	void rychlost(float x, float y);
+    // Presun objektu na zadane souradnice
+    void place(float px, float py);
 
-	void zrychleni(float x, float y);
+    // Pohyb objektu o zadanou vzdalenost
+    void move(float px, float py);
 
-	// Aktualizuj automaticke pohyby
-	void aktualizuj();
+    // Nastav velocity automatickeho pohybu
+    void velocity(float x, float y);
 
-	// Vykresleni objektu na obrazovku
-	void kresli();
+    void accel(float x, float y);
 
-	// Zjistime kolizi
-	int kolize(Obrazek *o);
-	Uint32 getpixel(int x,int y);
+    // Aktualizuj automaticke pohyby
+    void update();
+
+    // Vykresleni objektu na obrazovku
+    void draw();
+
+    // Zjistime kolizi
+    int collision(Image* o);
+    Uint32 get_pixel(int x, int y);
 };
 
-class Animace: public Obrazek
-{
+class Animation : public Image {
 public:
-	int frames, frame;
-	
-	Animace();
+    int frames, frame;
 
-	// Nacteni obrazku z disku do pameti
-	void nacti(char *filename, int w, int h);
+    Animation();
 
-	// Aktualizuj automaticke pohyby
-	void aktualizuj();
+    // Nacteni obrazku z disku do pameti
+    void load(char* filename, int w, int h);
 
-	// Vykresleni objektu na obrazovku
-	void kresli();
+    // Aktualizuj automaticke pohyby
+    void update();
+
+    // Vykresleni objektu na obrazovku
+    void draw();
 };
 
-class Pismo: public Obrazek
-{
+class Text : public Image {
 public:
-	char znaky[256];
-	int pozice[256];
-	int sirka[256];
-	int pocet;
-	
-	Pismo();
-	
-	void nacti(const char *filename, const char *characters);
-	void kresli(const char *text);
-	void kresli(int cislo);
+    char characters[256];
+    int positions[256];
+    int width[256];
+    int count;
+
+    Text();
+
+    void load(const char* filename, const char* characters);
+    void draw(const char* text);
+    void draw(int cislo);
 };
 
 extern Uint32 pixel;
 
-void barva(unsigned char r, unsigned char g, unsigned char b);
-void bod(int x, int y);
-void cara(int x1, int y1, int x2, int y2);
-void cara(int x, int y);
-void rcara(int x, int y);
-void obdelnik(int x1, int y1, int x2, int y2);
+void color(unsigned char r, unsigned char g, unsigned char b);
+void point(int x, int y);
+void line(int x1, int y1, int x2, int y2);
+void line(int x, int y);
+void rline(int x, int y);
+void rectangle(int x1, int y1, int x2, int y2);
 
 #endif // MAIN_H
