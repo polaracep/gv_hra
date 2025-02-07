@@ -13,6 +13,9 @@ find_package(SDL REQUIRED)
 include_directories(${SDL_INCLUDE_DIR})
 target_link_libraries(${TARGET_NAME} PRIVATE ${SDL_LIBRARY})
 
+# Grafika lib
+include_directories(${CMAKE_SOURCE_DIR}/inc)
+
 include(GNUInstallDirs)
 install(TARGETS ${TARGET_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
