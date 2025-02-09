@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TBoGV;
 
-public class GameMain : Game
+public class TBoGVGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    public GameMain()
+    public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
