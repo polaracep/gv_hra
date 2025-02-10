@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
 /* 
- * Textury muzu nacitat jenom v Game.cs. 
+ * Textury muzu nacitat jenom v Game.cs. (nenasel jsem jiny zpusob)
  * Nactu je proto sem to textureManageru a pak je muzu brat odsud :thumbsup:
  *
  * Je dobry pouzivat name textury stejny jako jmeno souboru (bez pripony)

@@ -25,6 +25,7 @@ public class TBoGVGame : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         TextureManager.addTexture("vitek-nobg", Content.Load<Texture2D>("Textures/vitek-nobg"));
+        TextureManager.addTexture("tile", Content.Load<Texture2D>("Textures/tile"));
 
         // TODO: use this.Content to load your game content here
     }
@@ -45,7 +46,7 @@ public class TBoGVGame : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin();
-        _spriteBatch.Draw(wallTile.getTexture(), new Vector2(10, 10), Color.White);
+        _spriteBatch.Draw(wallTile.getTexture(), new Vector2(0, 0), Color.White);
         _spriteBatch.End();
 
         // TODO: Add your drawing code here
