@@ -11,15 +11,17 @@ namespace TBoGV.Core
 		static Texture2D Sprite;
 		static readonly string SpriteName = "tile";
 		public bool ShotByPlayer;
+		int Damage {  get; set; }
 
-		public Projectile(Vector2 position, Vector2 direction) 
+		public Projectile(Vector2 position, Vector2 direction, int damage) 
 		{ 
 			Size = new Vector2(25, 25);
 			Position = position - Size/2;
 			Direction = direction;
 			MovementSpeed = 5;
+			Damage = damage;
 		}
-		public override void Update(KeyboardState keyboardState, MouseState mouseState)
+		public void Update()
 		{
 			Position += Direction * MovementSpeed;
 		}

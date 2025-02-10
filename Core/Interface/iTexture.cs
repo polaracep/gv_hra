@@ -13,7 +13,7 @@ namespace TBoGV.Core.Interface
 	internal interface ITexture
 	{
 		void Draw(SpriteBatch spriteBatch, Texture2D sprite);
-		void Load(ContentManager content);
-		Vector2 GetSize(Texture2D sprite);
+		static void Load(ContentManager content) => throw new NotImplementedException(); 
+        Vector2 GetSize(Texture2D sprite);
 	}
 }

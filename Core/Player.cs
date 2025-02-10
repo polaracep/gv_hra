@@ -19,21 +19,17 @@ namespace TBoGV.Core
 		public DateTime LastAttackTime { get; set; }
 
         public List<Projectile> Projectiles { get; set; }
-		public Player(Vector2 postition)
+		public Player(Vector2 position)
 		{ 
 			Position = Vector2.Zero;
             Size = new Vector2(50, 50);
-            SetPosition(postition);
 			Hp = 3;
 			MovementSpeed = 4;
 			Projectiles = new List<Projectile>();
 			AttackSpeed = 2;
-		}
-		public void SetPosition(Vector2 postition)
-		{
-			Position = postition;
-		}
-		public override void Update(KeyboardState keyboardState, MouseState mouseState)
+            AttackDmg = 1;
+        }
+		public void Update(KeyboardState keyboardState, MouseState mouseState)
 		{
 			if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
 			{
@@ -76,7 +72,7 @@ namespace TBoGV.Core
 		public Projectile Attack()
 		{
             LastAttackTime = DateTime.UtcNow;
-            return new Projectile(Position + Size/2,Direction);
+            return new Projectile(Position + Size/2,Direction, AttackDmg);
 		}
 		public void RecieveDmg()
 		{

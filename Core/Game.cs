@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using TBoGV.Core;
 
 namespace TBoGV;
@@ -12,6 +13,7 @@ public class TBoGVGame : Game
     private SpriteBatch _spriteBatch;
 	Player player;
     Projectile projectile;
+    List<Projectile> projectiles;
 	Enemy enemy;
 	MouseState mouseState;
 	KeyboardState keyboardState;
@@ -22,8 +24,10 @@ public class TBoGVGame : Game
         IsMouseVisible = true;
 		player = new Player(new Vector2(0, 0));
 
-        //enemy = new RangedEnemy(new Vector2(0, 100));
-	}
+        enemy = new RangedEnemy(new Vector2(0, 100));
+        projectiles = new List<Projectile>();
+
+    }
 
     protected override void Initialize()
     {
@@ -35,7 +39,8 @@ public class TBoGVGame : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 		player.Load(Content);
-        projectile = new Projectile(new Vector2(0, 0), new Vector2(0, 0));
+        enemy.Load(Content);
+        projectile = new Projectile(new Vector2(0, 0), new Vector2(0, 0), 0);
         projectile.Load(Content);
 
     }
@@ -49,9 +54,12 @@ public class TBoGVGame : Game
 		keyboardState = Keyboard.GetState();
 		player.Update(keyboardState, mouseState);
         foreach (Projectile projectile in player.Projectiles)
-            projectile.Update(keyboardState, mouseState);
-        
-
+            projectile.Update();
+        foreach (Projectile projectile in projectiles)
+            projectile.Update();
+        enemy.Update(player.Position + player.Size / 2);
+        if(enemy.ReadyToAttack())
+            projectiles.Add(enemy.Attack());
         base.Update(gameTime);
     }
 
@@ -63,7 +71,10 @@ public class TBoGVGame : Game
         _spriteBatch.Begin();
         //_spriteBatch.Draw(wallTile.getTexture(), new Vector2(0, 0), Color.White);
 		player.Draw(_spriteBatch);
+        enemy.Draw(_spriteBatch);
         foreach (Projectile projectile in player.Projectiles)
+            projectile.Draw(_spriteBatch);
+        foreach (Projectile projectile in projectiles)
             projectile.Draw(_spriteBatch);
         //enemy.Draw(_spriteBatch);
 
