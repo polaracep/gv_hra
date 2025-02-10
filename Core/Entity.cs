@@ -17,7 +17,7 @@ namespace TBoGV.Core
 		public Vector2 Position;
 		public Vector2 Direction;
 		public Vector2 Size;
-
+		public int MovementSpeed;
 		public int Hp {  get; set; }
 		public Entity() { }
 		public virtual void Load(ContentManager content) { }

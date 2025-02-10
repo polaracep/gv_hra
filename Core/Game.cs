@@ -20,7 +20,7 @@ public class TBoGVGame : Game
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
 		player = new Player(new Vector2(0, 0));
-		//enemy = new Enemy(new Vector2(0, 100));
+        //enemy = new RangedEnemy(new Vector2(0, 100));
 	}
 
     protected override void Initialize()
