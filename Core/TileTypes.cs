@@ -35,7 +35,7 @@ public abstract class Tile : ITexture
         return sprites[spriteId];
     }
 
-    public void Draw(SpriteBatch spriteBatch, Texture2D sprite)
+    public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(this.getTexture(), this.screenPos, Color.White);
     }
