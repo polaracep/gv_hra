@@ -1,20 +1,17 @@
 using Microsoft.Xna.Framework;
 
 namespace TBoGV;
-public class Room
+public abstract class Room
 {
-    private Vector2 dim;
-    private Tile[,] roomMap;
+    public Vector2 Dimensions { get; protected set; }
+    protected Tile[,] RoomMap;
 
     public Room(Vector2 dimensions)
     {
-        this.dim = dimensions;
-        this.roomMap = new Tile[(int)dimensions.X, (int)dimensions.Y];
+        this.Dimensions = dimensions;
+        this.GenerateRoom();
     }
 
-    public Vector2 getDimensions()
-    {
-        return dim;
-    }
+    protected abstract void GenerateRoom();
 
 }

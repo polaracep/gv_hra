@@ -9,6 +9,7 @@ public class TBoGVGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    RoomEmpty r = new RoomEmpty();
     Player player;
     List<Projectile> projectiles;
     Enemy enemy;
@@ -38,6 +39,8 @@ public class TBoGVGame : Game
         Player.Load(Content);
         RangedEnemy.Load(Content);
         Projectile.Load(Content);
+        TileWall.Load(Content);
+        TileFloor.Load(Content);
 
     }
 
@@ -65,6 +68,7 @@ public class TBoGVGame : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin();
+        r.Draw(_spriteBatch);
         //_spriteBatch.Draw(wallTile.getTexture(), new Vector2(0, 0), Color.White);
         player.Draw(_spriteBatch);
         enemy.Draw(_spriteBatch);
