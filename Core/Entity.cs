@@ -7,31 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TBoGV.Core.Interface;
+using Microsoft.Xna.Framework.Input;
 
 namespace TBoGV.Core
 {
 	abstract class Entity:iTexture
 	{
-		Texture2D Sprite;
 		string SpriteName;
 		public Vector2 Position;
 		public Vector2 Size;
-		public Entity(string spriteName)
+		public Entity() { }
+		public virtual void Load(ContentManager content) { }
+		public void Draw(SpriteBatch spriteBatch, Texture2D sprite)
 		{
-			this.SpriteName = spriteName;
+			spriteBatch.Draw(sprite, new Rectangle(Convert.ToInt32(Position.X),Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)),Color.White);
 		}
-		public void Load(ContentManager content)
+		public Vector2 GetSize(Texture2D sprite)
 		{
-			Sprite = content.Load<Texture2D>(SpriteName);
-			Size = GetSize();
+			return new Vector2(sprite.Width, sprite.Height);
 		}
-		public void Draw(SpriteBatch spriteBatch)
-		{
-			spriteBatch.Draw(Sprite, Position, Color.White);
-		}
-		public Vector2 GetSize()
-		{
-			return new Vector2(Sprite.Width, Sprite.Height);
-		}
+		public virtual void Update(KeyboardState keyboardState, MouseState mouseState) { }
 	}
 }
