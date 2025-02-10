@@ -55,7 +55,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg
 		if (ReadyToAttack() && mouseState.LeftButton == ButtonState.Pressed)
 			Projectiles.Add(Attack());
 	}
-	public override void Load(ContentManager content)
+	public void Load(ContentManager content)
 	{
 		Sprite = content.Load<Texture2D>(SpriteName);
 	}

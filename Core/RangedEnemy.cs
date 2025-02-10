@@ -30,7 +30,7 @@ internal class RangedEnemy : Enemy
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        base.Draw(spriteBatch, Sprite);
+        spriteBatch.Draw(Sprite, this.Position, Color.White);
     }
 
     public override bool ReadyToAttack()
@@ -48,7 +48,7 @@ internal class RangedEnemy : Enemy
         throw new NotImplementedException();
     }
 
-    public override void Load(ContentManager content)
+    public void Load(ContentManager content)
     {
         Sprite = content.Load<Texture2D>(SpriteName);
     }
