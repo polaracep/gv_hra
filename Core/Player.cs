@@ -4,14 +4,14 @@ namespace TBoGV.Core
 {
 	internal class Player : Entity
 	{
-		public Player(string spriteName, Vector2 postition) : base(spriteName) 
-		{ 
-			Position = Vector2.Zero;
-			SetPosition(postition);
-		}
-		public void SetPosition(Vector2 postition)
+		public Player(string spriteName, Vector2 pos) : base(spriteName)
 		{
-			Position = postition;
+			this.position = Vector2.Zero;
+			SetPosition(pos);
+		}
+		public void SetPosition(Vector2 pos)
+		{
+			this.position = pos;
 		}
 	}
 }

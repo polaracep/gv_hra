@@ -9,15 +9,15 @@ public class TBoGVGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-	Player player;
+    Player player;
 
     public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
-		player = new Player("vitek-nobg", new Vector2(0, 0));
-	}
+        player = new Player("vitek-nobg", new Vector2(0, 0));
+    }
 
     protected override void Initialize()
     {
@@ -28,13 +28,10 @@ public class TBoGVGame : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-<<<<<<< HEAD
         // TextureManager.addTexture("vitek-nobg", Content.Load<Texture2D>("Textures/vitek-nobg"));
         // TextureManager.addTexture("tile", Content.Load<Texture2D>("Textures/tile"));
 
-=======
-		player.Load(Content);
->>>>>>> 368254fc52123fb507b0fcb0193c3726c4e2512f
+        player.Load(Content);
         // TODO: use this.Content to load your game content here
     }
 
@@ -55,7 +52,7 @@ public class TBoGVGame : Game
 
         _spriteBatch.Begin();
         //_spriteBatch.Draw(wallTile.getTexture(), new Vector2(0, 0), Color.White);
-		player.Draw(_spriteBatch);
+        player.Draw(_spriteBatch);
         _spriteBatch.End();
 
         // TODO: Add your drawing code here

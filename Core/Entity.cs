@@ -10,28 +10,28 @@ using TBoGV.Core.Interface;
 
 namespace TBoGV.Core
 {
-	abstract class Entity:iTexture
+	abstract class Entity : ITexture
 	{
-		Texture2D Sprite;
-		string SpriteName;
-		public Vector2 Position;
-		public Vector2 Size;
+		Texture2D sprite;
+		string spriteName;
+		public Vector2 position;
+		public Vector2 size;
 		public Entity(string spriteName)
 		{
-			this.SpriteName = spriteName;
+			this.spriteName = spriteName;
 		}
 		public void Load(ContentManager content)
 		{
-			Sprite = content.Load<Texture2D>(SpriteName);
-			Size = GetSize();
+			sprite = content.Load<Texture2D>(spriteName);
+			size = GetSize();
 		}
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Sprite, Position, Color.White);
+			spriteBatch.Draw(sprite, position, Color.White);
 		}
 		public Vector2 GetSize()
 		{
-			return new Vector2(Sprite.Width, Sprite.Height);
+			return new Vector2(sprite.Width, sprite.Height);
 		}
 	}
 }

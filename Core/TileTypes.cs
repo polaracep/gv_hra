@@ -31,10 +31,12 @@ public class TileFloor : Tile
 
 }
 
+/*
 public class TileWall : Tile
 {
     public TileWall() : base() { }
 }
+*/
 
 /*
 public class TileChest : Tile
