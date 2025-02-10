@@ -33,7 +33,7 @@ public class TBoGVGame : Game
 
         player.Load(Content);
         TileFloor.Load(Content);
-        TileWall.Load(Content);
+        // TileWall.Load(Content);
         // TODO: use this.Content to load your game content here
     }
 
