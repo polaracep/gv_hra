@@ -15,7 +15,10 @@ namespace TBoGV.Core
 	{
 		string SpriteName;
 		public Vector2 Position;
+		public Vector2 Direction;
 		public Vector2 Size;
+
+		public int Hp {  get; set; }
 		public Entity() { }
 		public virtual void Load(ContentManager content) { }
 		public void Draw(SpriteBatch spriteBatch, Texture2D sprite)
