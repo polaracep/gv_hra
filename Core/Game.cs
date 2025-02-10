@@ -24,8 +24,8 @@ public class TBoGVGame : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        TextureManager.addTexture("vitek-nobg", Content.Load<Texture2D>("Textures/vitek-nobg"));
-        TextureManager.addTexture("tile", Content.Load<Texture2D>("Textures/tile"));
+        // TextureManager.addTexture("vitek-nobg", Content.Load<Texture2D>("Textures/vitek-nobg"));
+        // TextureManager.addTexture("tile", Content.Load<Texture2D>("Textures/tile"));
 
         // TODO: use this.Content to load your game content here
     }

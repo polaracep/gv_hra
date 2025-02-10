@@ -33,7 +33,7 @@ public class TileFloor : Tile
 
 public class TileWall : Tile
 {
-    public TileWall() : base(TextureManager.getTexture("tile"), true) { }
+    public TileWall() : base() { }
 }
 
 /*
