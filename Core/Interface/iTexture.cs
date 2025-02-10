@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace TBoGV.Core.Interface
 {
-	internal interface iTexture
+	internal interface ITexture
 	{
 		void Draw(SpriteBatch spriteBatch, Texture2D sprite);
 		void Load(ContentManager content);

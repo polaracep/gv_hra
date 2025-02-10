@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TBoGV.Core
 {
-	abstract class Entity:iTexture
+	abstract class Entity:ITexture
 	{
 		string SpriteName;
 		public Vector2 Position;
