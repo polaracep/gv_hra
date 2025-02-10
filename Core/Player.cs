@@ -71,7 +71,10 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 	public Projectile Attack()
 	{
 		LastAttackTime = DateTime.UtcNow;
-		return new Projectile(Position + Size / 2, Direction, AttackDmg);
+		Projectile projectile = new Projectile(Position + Size / 2, Direction, AttackDmg);
+		projectile.ShotByPlayer = true;
+
+        return projectile;
 	}
 	public void RecieveDmg()
 	{

@@ -10,7 +10,6 @@ public class TBoGVGame : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     Player player;
-    Projectile projectile;
     List<Projectile> projectiles;
     Enemy enemy;
     MouseState mouseState;
