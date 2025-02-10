@@ -9,14 +9,14 @@ namespace TBoGV;
 internal class Projectile : Entity
 {
 	static Texture2D Sprite;
-	static readonly string SpriteName = "tile";
+	static readonly string SpriteName = "projectile";
 	public bool ShotByPlayer;
-	int Damage {  get; set; }
+	int Damage { get; set; }
 
-	public Projectile(Vector2 position, Vector2 direction, int damage) 
-	{ 
-		Size = new Vector2(25, 25);
-		Position = position - Size/2;
+	public Projectile(Vector2 position, Vector2 direction, int damage)
+	{
+		Size = new Vector2(7, 7);
+		Position = position - Size / 2;
 		Direction = direction;
 		MovementSpeed = 5;
 		Damage = damage;
@@ -31,8 +31,8 @@ internal class Projectile : Entity
 	}
 	public void Draw(SpriteBatch spriteBatch)
 	{
-        spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
-    }
+		spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
+	}
 
 }
 
