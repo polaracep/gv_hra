@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TBoGV.Core.Interface
+namespace TBoGV;
+internal interface IDealDmg
 {
-	internal interface IDealDmg
-	{
-        DateTime LastAttackTime { get; set; }
-		int AttackSpeed { get; set; }
-		int AttackDmg { get; set; }
-		bool ReadyToAttack();
-		Projectile Attack();
-	}
+	DateTime LastAttackTime { get; set; }
+	int AttackSpeed { get; set; }
+	int AttackDmg { get; set; }
+	bool ReadyToAttack();
+	Projectile Attack();
 }

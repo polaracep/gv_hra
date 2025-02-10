@@ -2,23 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TBoGV.Core.Interface;
-using Microsoft.Xna.Framework.Input;
 
-namespace TBoGV.Core
+namespace TBoGV;
+
+abstract class Entity
 {
-	abstract class Entity
-	{
-		string SpriteName;
-		public Vector2 Position;
-		public Vector2 Direction;
-		public Vector2 Size;
-		public int MovementSpeed;
-		public int Hp { get; set; }
-		public Entity() { }
-	}
+	public Vector2 Position;
+	public Vector2 Direction;
+	public Vector2 Size;
+	public int MovementSpeed;
+	public int Hp { get; set; } // tohle removnout
 }

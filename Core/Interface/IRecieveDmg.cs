@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TBoGV.Core.Interface
+﻿namespace TBoGV;
+internal interface IRecieveDmg
 {
-	internal interface IRecieveDmg
-	{
-		int Hp {  get; set; }
-		void RecieveDmg();
-	}
+	int Hp { get; set; }
+	void RecieveDmg();
 }
