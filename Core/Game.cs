@@ -32,6 +32,8 @@ public class TBoGVGame : Game
         // TextureManager.addTexture("tile", Content.Load<Texture2D>("Textures/tile"));
 
         player.Load(Content);
+        TileFloor.Load(Content);
+        TileWall.Load(Content);
         // TODO: use this.Content to load your game content here
     }
 
