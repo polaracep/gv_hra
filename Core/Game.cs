@@ -38,10 +38,9 @@ public class TBoGVGame : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        player.Load(Content);
-        enemy.Load(Content);
-        projectile = new Projectile(new Vector2(0, 0), new Vector2(0, 0), 0);
-        projectile.Load(Content);
+        Player.Load(Content);
+        RangedEnemy.Load(Content);
+        Projectile.Load(Content);
 
     }
 

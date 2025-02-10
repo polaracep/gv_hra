@@ -36,7 +36,7 @@ namespace TBoGV.Core
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch, Sprite);
+            spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
         }
 
         public override bool ReadyToAttack()
@@ -54,7 +54,7 @@ namespace TBoGV.Core
             throw new NotImplementedException();
         }
 
-        public override void Load(ContentManager content)
+        public static void Load(ContentManager content)
         {
             Sprite = content.Load<Texture2D>(SpriteName);
         }

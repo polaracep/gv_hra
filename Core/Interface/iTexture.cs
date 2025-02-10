@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using System;
 
-namespace TBoGV.Core.Interface
+namespace TBoGV;
+interface ITexture
 {
-	internal interface ITexture
+	void Draw(SpriteBatch spriteBatch);
+	static void Load(ContentManager content)
 	{
-		void Draw(SpriteBatch spriteBatch, Texture2D sprite);
-		static void Load(ContentManager content) => throw new NotImplementedException(); 
-        Vector2 GetSize(Texture2D sprite);
+		throw new NotImplementedException("ITexture::Load");
 	}
 }

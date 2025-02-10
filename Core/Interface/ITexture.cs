@@ -11,5 +11,4 @@ interface ITexture
 	{
 		throw new NotImplementedException("ITexture::Load");
 	}
-	Vector2 GetSize();
 }

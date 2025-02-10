@@ -8,7 +8,7 @@ using TBoGV.Core.Interface;
 
 namespace TBoGV.Core
 {
-	internal class Player : Entity, IRecieveDmg, IDealDmg
+	internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 	{
 		static Texture2D Sprite;
 		static string SpriteName = "vitek-nobg";
@@ -57,15 +57,15 @@ namespace TBoGV.Core
 			if (ReadyToAttack() && mouseState.LeftButton == ButtonState.Pressed)
 				Projectiles.Add(Attack());
 		}
-		public override void Load(ContentManager content)
+		public static void Load(ContentManager content)
 		{
 			Sprite = content.Load<Texture2D>(SpriteName);
 		}
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			base.Draw(spriteBatch, Sprite);
-		}
-		public bool ReadyToAttack()
+            spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
+        }
+        public bool ReadyToAttack()
 		{
 			return (DateTime.UtcNow - LastAttackTime).TotalMilliseconds >= AttackSpeed;
 		}
