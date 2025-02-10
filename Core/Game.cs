@@ -11,18 +11,18 @@ public class TBoGVGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-	Player player;
+    Player player;
     Projectile projectile;
     List<Projectile> projectiles;
-	Enemy enemy;
-	MouseState mouseState;
-	KeyboardState keyboardState;
+    Enemy enemy;
+    MouseState mouseState;
+    KeyboardState keyboardState;
     public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
-		player = new Player(new Vector2(0, 0));
+        player = new Player(new Vector2(0, 0));
 
         enemy = new RangedEnemy(new Vector2(0, 100));
         projectiles = new List<Projectile>();
@@ -38,7 +38,7 @@ public class TBoGVGame : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-		player.Load(Content);
+        player.Load(Content);
         enemy.Load(Content);
         projectile = new Projectile(new Vector2(0, 0), new Vector2(0, 0), 0);
         projectile.Load(Content);
@@ -50,15 +50,15 @@ public class TBoGVGame : Game
         // exit coded
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-		mouseState = Mouse.GetState();
-		keyboardState = Keyboard.GetState();
-		player.Update(keyboardState, mouseState);
+        mouseState = Mouse.GetState();
+        keyboardState = Keyboard.GetState();
+        player.Update(keyboardState, mouseState);
         foreach (Projectile projectile in player.Projectiles)
             projectile.Update();
         foreach (Projectile projectile in projectiles)
             projectile.Update();
         enemy.Update(player.Position + player.Size / 2);
-        if(enemy.ReadyToAttack())
+        if (enemy.ReadyToAttack())
             projectiles.Add(enemy.Attack());
         base.Update(gameTime);
     }
@@ -70,7 +70,7 @@ public class TBoGVGame : Game
 
         _spriteBatch.Begin();
         //_spriteBatch.Draw(wallTile.getTexture(), new Vector2(0, 0), Color.White);
-		player.Draw(_spriteBatch);
+        player.Draw(_spriteBatch);
         enemy.Draw(_spriteBatch);
         foreach (Projectile projectile in player.Projectiles)
             projectile.Draw(_spriteBatch);
