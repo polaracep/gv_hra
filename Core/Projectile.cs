@@ -9,18 +9,19 @@ namespace TBoGV.Core
 	internal class Projectile : Entity
 	{
 		static Texture2D Sprite;
-		static readonly string SpriteName = "vitek-nobg";
+		static readonly string SpriteName = "tile";
 		public bool ShotByPlayer;
-		public Vector2 Direction { get; set; }
 
 		public Projectile(Vector2 position, Vector2 direction) 
 		{ 
-			Position = position;
+			Size = new Vector2(25, 25);
+			Position = position - Size/2;
 			Direction = direction;
+			MovementSpeed = 5;
 		}
 		public override void Update(KeyboardState keyboardState, MouseState mouseState)
 		{
-			Position += Direction;
+			Position += Direction * MovementSpeed;
 		}
 		public override void Load(ContentManager content)
 		{

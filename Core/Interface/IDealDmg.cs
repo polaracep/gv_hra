@@ -8,6 +8,7 @@ namespace TBoGV.Core.Interface
 {
 	internal interface IDealDmg
 	{
+        DateTime LastAttackTime { get; set; }
 		int AttackSpeed { get; set; }
 		int AttackDmg { get; set; }
 		bool ReadyToAttack();
