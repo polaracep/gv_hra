@@ -25,11 +25,9 @@ namespace TBoGV.Core
 		{
 			Position += Direction * MovementSpeed;
 		}
-		public override void Load(ContentManager content)
+		static void Load(ContentManager content)
 		{
 			Sprite = content.Load<Texture2D>(SpriteName);
-			if (Size.X == 0 && Size.Y == 0)
-				Size = GetSize(Sprite);
 		}
 		public void Draw(SpriteBatch spriteBatch)
 		{
