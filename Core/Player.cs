@@ -15,8 +15,9 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 	public int AttackSpeed { get; set; }
 	public int AttackDmg { get; set; }
 	public DateTime LastAttackTime { get; set; }
-
-	public List<Projectile> Projectiles { get; set; }
+    public DateTime LastRecievedDmgTime { get; set; }
+	public int InvulnerabilityFrame = 1000;
+    public List<Projectile> Projectiles { get; set; }
 	public int Hp { get; set; }
     public int MaxHp {  get; set; }
 
@@ -97,7 +98,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 
 	public void Draw(SpriteBatch spriteBatch)
 	{
-		spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
+		spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), (DateTime.UtcNow - LastRecievedDmgTime).TotalMilliseconds >= InvulnerabilityFrame ? Color.White : Color.Yellow);
 		spriteBatch.Draw(TextureManager.GetTexture("projectile"), InteractionPoint, Color.White);
 	}
 	public bool ReadyToAttack()
@@ -114,7 +115,12 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 	}
 	public void RecieveDmg(int damage)
 	{
-		Hp -= damage;
+		if ((DateTime.UtcNow - LastRecievedDmgTime).TotalMilliseconds >= InvulnerabilityFrame)
+		{
+			Hp -= damage;
+            LastRecievedDmgTime = DateTime.UtcNow;
+        }
+
 	}
 }
 
