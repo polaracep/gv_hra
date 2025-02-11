@@ -70,7 +70,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		if (dx != 0)
 		{
 			newPosition.X += dx;
-			if (!room.GetTile(newPosition).DoCollision && !room.GetTile(newPosition + Size).DoCollision)
+			if (!room.GetTile(newPosition).DoCollision && !room.GetTile(newPosition + Size).DoCollision && !room.GetTile(new Vector2(newPosition.X + Size.X, newPosition.Y)).DoCollision && !room.GetTile(new Vector2(newPosition.X, newPosition.Y + Size.Y)).DoCollision)
 				Position.X = newPosition.X;
 		}
 		newPosition = Position;
