@@ -43,10 +43,6 @@ public class TileFloor : Tile, IDraw
                 throw new Exception();
         }
     }
-    public void Draw(SpriteBatch spriteBatch)
-    {
-        spriteBatch.Draw(Sprite, this.screenPos, Color.White);
-    }
 }
 
 public class TileWall : Tile, IDraw
