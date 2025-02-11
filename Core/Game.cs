@@ -80,6 +80,7 @@ public class TBoGVGame : Game
 
 			if (ObjectCollision.CircleCircleCollision(player.Projectiles[i], enemy))
 			{
+				// HOnim HOdne HOdin - SANTA REFERENCE
 				player.RecieveDmg(player.Projectiles[i].Damage);
 				player.Projectiles.RemoveAt(i);
 				continue;
