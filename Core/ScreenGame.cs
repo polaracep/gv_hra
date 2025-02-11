@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-using System.Reflection.Metadata;
 using TBoGV.Core;
+using Microsoft.Xna.Framework.Media;
 namespace TBoGV;
 
 internal class ScreenGame : Screen
@@ -18,6 +18,8 @@ internal class ScreenGame : Screen
     private MouseState mouseState;
     private KeyboardState keyboardState;
     private int Frame;
+    private Song Song;
+
     public ScreenGame(GraphicsDeviceManager graphics)
     {
         Graphics = graphics;
@@ -31,6 +33,17 @@ internal class ScreenGame : Screen
         UI = new UI();
         _camera = new Camera(Graphics.GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
         inGameMenu = new InGameMenu(Graphics.GraphicsDevice.Viewport);
+
+        // check the current state of the MediaPlayer.
+        Song = SongManager.GetSong("soundtrack");
+        if (MediaPlayer.State != MediaState.Stopped)
+        {
+            MediaPlayer.Stop(); // stop current audio playback if playing or paused.
+        }
+
+        // Play the selected song reference.
+        MediaPlayer.Play(Song);
+        MediaPlayer.Volume = 0.3f;
     }
 
     public override void Draw(SpriteBatch _spriteBatch)
