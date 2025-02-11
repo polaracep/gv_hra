@@ -23,6 +23,14 @@ public abstract class Room : IDraw
     }
 
     protected abstract void GenerateRoom();
+    public Vector2 GetTilePos(Vector2 coords)
+    {
+        if (float.IsNaN(coords.X) || float.IsNaN(coords.Y))
+            throw new ArgumentOutOfRangeException();
+        if (coords.X >= Dimensions.X * Tile.GetSize().X || coords.Y >= Dimensions.Y * Tile.GetSize().Y || coords.X < 0 || coords.Y < 0)
+            throw new ArgumentOutOfRangeException();
+        return new Vector2((int)(coords.X * Tile.GetSize().X), (int)(coords.Y * Tile.GetSize().Y));
+    }
     public virtual Tile GetTile(Vector2 coords)
     {
         if (float.IsNaN(coords.X) || float.IsNaN(coords.Y))
@@ -55,6 +63,21 @@ public abstract class Room : IDraw
     }
     protected void UpdateProjectiles()
     {
+        for (int i = projectiles.Count - 1; i >= 0; i--)
+        {
+            projectiles[i].Update();
+
+            if (ObjectCollision.CircleCircleCollision(projectiles[i], player))
+            {
+                player.RecieveDmg(projectiles[i].Damage);
+                projectiles.RemoveAt(i);
+                continue;
+            }
+            if (this.GetTile(projectiles[i].GetCircleCenter()).DoCollision == true)
+            {
+                projectiles.RemoveAt(i);
+            }
+        }
         for (int i = player.Projectiles.Count - 1; i >= 0; i--)
         {
             player.Projectiles[i].Update();
@@ -76,6 +99,7 @@ public abstract class Room : IDraw
                     }
                     break;
                 }
+
         }
     }
     protected void UpdateEnemies()

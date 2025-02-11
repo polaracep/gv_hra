@@ -31,6 +31,9 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		AttackDmg = 1;
 		Sprite = TextureManager.GetTexture("vitek-nobg");
 	}
+
+	public Player() : this(Vector2.One) { }
+
 	Vector2 InteractionPoint = Vector2.Zero;
 	public void Update(KeyboardState keyboardState, MouseState mouseState, Matrix transform, Room room)
 	{

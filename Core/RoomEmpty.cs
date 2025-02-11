@@ -1,3 +1,4 @@
+using System.Net.NetworkInformation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -27,7 +28,19 @@ public class RoomEmpty : Room, IDraw
             RoomMap[(int)Dimensions.X - 1, i] = new TileWall(WallTypes.BASIC);
         }
 
-        RoomMap[0, 4] = new TileDoor(DoorTypes.BASIC);
+        this.AddTile(new TileHeal(), new Vector2(5, 5));
+        this.AddTile(new TileDoor(DoorTypes.BASIC), new Vector2(0, 4));
+        this.GenerateEnemies();
+
+        player.Position = this.GetTilePos(Vector2.One);
+    }
+
+    protected void GenerateEnemies()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            this.AddEnemy(new RangedEnemy(new Vector2(Tile.GetSize().X * i, Tile.GetSize().Y)));
+        }
     }
 
 }

@@ -77,6 +77,7 @@ public class TileDoor : Tile, IDraw, IInteractable
     {
         // put player in the left-top corne
         e.Position = tileSize;
+
     }
 }
 
