@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework;
 using System;
 
 namespace TBoGV;
-abstract internal class Enemy : Entity, IRecieveDmg, IDealDmg
+public abstract class Enemy : Entity, IRecieveDmg, IDealDmg
 {
     public DateTime LastAttackTime { get; set; }
     public int AttackSpeed { get; set; }
     public int AttackDmg { get; set; }
-	public int Hp { get; set; }
+    public int Hp { get; set; }
     public int MaxHp { get; set; }
     public int XpValue { get; set; }
 
@@ -19,8 +19,8 @@ abstract internal class Enemy : Entity, IRecieveDmg, IDealDmg
     public abstract bool IsDead();
     public abstract Projectile Attack();
 
-	public void RecieveDmg(int damage)
-	{
-		Hp -= damage;
-	}
+    public void RecieveDmg(int damage)
+    {
+        Hp -= damage;
+    }
 }

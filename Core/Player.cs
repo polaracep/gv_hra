@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace TBoGV;
 
-internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
+public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 {
 	static Texture2D Sprite;
 	int Level { get; set; }
@@ -32,6 +31,9 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		AttackDmg = 1;
 		Sprite = TextureManager.GetTexture("vitek-nobg");
 	}
+
+	public Player() : this(Vector2.One) { }
+
 	Vector2 InteractionPoint = Vector2.Zero;
 	public void Update(KeyboardState keyboardState, MouseState mouseState, Matrix transform, Room room)
 	{

@@ -1,14 +1,13 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
 
 
 namespace TBoGV;
 
-internal class Projectile : Entity, IDraw
+public class Projectile : Entity, IDraw
 {
-	public const string SpriteName = "projectile";
+	public const string SpriteName = "koren";
 	public Texture2D Sprite { get; protected set; }
 	public bool ShotByPlayer;
 	public int Damage { get; set; }
@@ -16,7 +15,8 @@ internal class Projectile : Entity, IDraw
 	public Projectile(Vector2 position, Vector2 direction, int damage)
 	{
 		Sprite = TextureManager.GetTexture(SpriteName);
-		Size = new Vector2(7, 7);
+		// Size = new Vector2(7, 7);
+		Size = new Vector2(Sprite.Width, Sprite.Height);
 		Position = position - Size / 2;
 		Direction = direction;
 		MovementSpeed = 5;

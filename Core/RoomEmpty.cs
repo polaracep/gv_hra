@@ -1,5 +1,4 @@
-using System;
-using System.Diagnostics;
+using System.Net.NetworkInformation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,18 +6,8 @@ namespace TBoGV;
 
 public class RoomEmpty : Room, IDraw
 {
-    public RoomEmpty(Vector2 dimensions) : base(dimensions) { }
-    public RoomEmpty() : base(new Vector2(13, 17)) { }
-
-    public void Draw(SpriteBatch spriteBatch)
-    {
-        for (int i = 0; i < Dimensions.X; i++)
-            for (var j = 0; j < Dimensions.Y; j++)
-            {
-                Tile t = RoomMap[i, j];
-                spriteBatch.Draw(t.Sprite, new Vector2(i * Tile.GetSize().X, j * Tile.GetSize().Y), Color.White);
-            }
-    }
+    public RoomEmpty(Vector2 dimensions, Player p) : base(dimensions, p) { }
+    public RoomEmpty(Player p) : base(new Vector2(13, 17), p) { }
 
     protected override void GenerateRoom()
     {
@@ -39,19 +28,18 @@ public class RoomEmpty : Room, IDraw
             RoomMap[(int)Dimensions.X - 1, i] = new TileWall(WallTypes.BASIC);
         }
 
-        RoomMap[0, 4] = new TileDoor(DoorTypes.BASIC);
+        this.AddTile(new TileHeal(), new Vector2(5, 5));
+        this.AddTile(new TileDoor(DoorTypes.BASIC), new Vector2(0, 4));
+        this.GenerateEnemies();
+
+        player.Position = this.GetTilePos(Vector2.One);
     }
 
-    public bool AddTile(Tile tile, Vector2 position)
+    protected void GenerateEnemies()
     {
-        try
+        for (int i = 1; i <= 5; i++)
         {
-            RoomMap[(int)position.X, (int)position.Y] = tile;
-            return true;
-        }
-        catch (Exception)
-        {
-            return false;
+            this.AddEnemy(new RangedEnemy(new Vector2(Tile.GetSize().X * i, Tile.GetSize().Y)));
         }
     }
 
