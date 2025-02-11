@@ -10,14 +10,8 @@ public class TBoGVGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private Camera _camera;
-    Player player;
-    RoomEmpty r;
-    UI UI;
+
     Screen screenGame, screenCurrent;
-    InGameMenu inGameMenu;
-    MouseState mouseState;
-    KeyboardState keyboardState;
     public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -44,14 +38,7 @@ public class TBoGVGame : Game
     protected override void BeginRun()
     {
 
-        screenCurrent.BeginRun();
-
-        player = new Player();
-        r = new RoomEmpty(player);
-
-        UI = new UI();
-        _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
-        inGameMenu = new InGameMenu(GraphicsDevice.Viewport);
+        screenCurrent.BeginRun(GraphicsDevice);
         base.BeginRun();
     }
 
@@ -60,35 +47,14 @@ public class TBoGVGame : Game
         // exit coded
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-        mouseState = Mouse.GetState();
-        keyboardState = Keyboard.GetState();
-        player.Update(keyboardState, mouseState, _camera.Transform, r);
-
-        r.Update();
-
-
-        UI.Update(player);
-        _camera.Update(player.Position + player.Size / 2);
+        screenCurrent.Update();
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        //TileWall wallTile = new TileWall();
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        _spriteBatch.Begin(transformMatrix: _camera.Transform);
-        r.Draw(_spriteBatch);
-        player.Draw(_spriteBatch);
-        _spriteBatch.End();
-
-        _spriteBatch.Begin();
-        UI.Draw(_spriteBatch);
-        inGameMenu.Draw(_spriteBatch);
-        _spriteBatch.End();
-
-        // TODO: Add your drawing code here
-
+        screenCurrent.Draw(_spriteBatch);
         base.Draw(gameTime);
     }
 }
