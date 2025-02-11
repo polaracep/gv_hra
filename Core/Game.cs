@@ -43,6 +43,11 @@ public class TBoGVGame : Game
         player = new Player(new Vector2(50, 350));
 
         r = new RoomEmpty(player);
+        for (int i = 1; i <= 5; i++)
+        {
+            r.AddEnemy(new RangedEnemy(new Vector2(Tile.GetSize().X * i)));
+        }
+
         r.AddTile(new TileHeal(), new Vector2(5, 5));
         UI = new UI();
         _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));

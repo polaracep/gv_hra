@@ -43,7 +43,7 @@ public abstract class Room : IDraw
             return false;
         }
     }
-    public virtual void PlaceEnemy(Enemy enemy, Vector2 position)
+    public virtual void AddEnemy(Enemy enemy)
     {
         enemies.Add(enemy);
     }
@@ -76,7 +76,6 @@ public abstract class Room : IDraw
                     }
                     break;
                 }
-
         }
     }
     protected void UpdateEnemies()
@@ -90,7 +89,6 @@ public abstract class Room : IDraw
         }
 
     }
-
     public virtual void Draw(SpriteBatch spriteBatch)
     {
         for (int i = 0; i < Dimensions.X; i++)
