@@ -3,11 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using System;
 
 namespace TBoGV;
-interface ITexture
+interface IDraw
 {
 	void Draw(SpriteBatch spriteBatch);
-	static void Load(ContentManager content)
-	{
-		throw new NotImplementedException("ITexture::Load");
-	}
 }

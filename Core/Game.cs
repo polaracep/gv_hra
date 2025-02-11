@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using TBoGV.Core;
 
@@ -11,8 +12,8 @@ public class TBoGVGame : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private Camera _camera;
-    RoomEmpty r = new RoomEmpty();
     Player player;
+    RoomEmpty r;
     List<Projectile> projectiles;
     Enemy enemy;
     MouseState mouseState;
@@ -21,12 +22,11 @@ public class TBoGVGame : Game
     {
         _graphics = new GraphicsDeviceManager(this);
 
-
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
         player = new Player(new Vector2(50, 50));
 
-        enemy = new RangedEnemy(new Vector2(100, 100));
+        enemy = new RangedEnemy(new Vector2(0, 100));
         projectiles = new List<Projectile>();
 
     }
@@ -34,19 +34,31 @@ public class TBoGVGame : Game
     protected override void Initialize()
     {
         base.Initialize();
-        _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        Player.Load(Content);
-        RangedEnemy.Load(Content);
-        Projectile.Load(Content);
-        TileWall.Load(Content);
-        TileFloor.Load(Content);
-        TileDoor.Load(Content);
+
+        TextureManager.Load(Content);
+    }
+
+    // Run after LoadContent
+    protected override void BeginRun()
+    {
+        player = new Player(new Vector2(50, 50));
+
+        enemy = new RangedEnemy(new Vector2(100, 100));
+        projectiles = new List<Projectile>();
+
+        player = new Player(new Vector2(50, 50));
+        enemy = new RangedEnemy(new Vector2(0, 100));
+        projectiles = new List<Projectile>();
+        r = new RoomEmpty();
+        _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
+
+        base.BeginRun();
     }
 
     protected override void Update(GameTime gameTime)
@@ -58,38 +70,38 @@ public class TBoGVGame : Game
         keyboardState = Keyboard.GetState();
         player.Update(keyboardState, mouseState, _camera.Transform, r);
 
-		for (int i = projectiles.Count - 1; i >= 0; i--)
-		{
-			projectiles[i].Update();
+        for (int i = projectiles.Count - 1; i >= 0; i--)
+        {
+            projectiles[i].Update();
 
-			if (ObjectCollision.CircleCircleCollision(projectiles[i], player))
-			{
-				player.RecieveDmg(projectiles[i].Damage);
-				projectiles.RemoveAt(i); 
-				continue;
-			}
-			if (r.GetTile(projectiles[i].GetCircleCenter()).DoCollision == true)
-			{
-				projectiles.RemoveAt(i);
-			}
-		}
-		for (int i = player.Projectiles.Count - 1; i >= 0; i--)
-		{
-			player.Projectiles[i].Update();
+            if (ObjectCollision.CircleCircleCollision(projectiles[i], player))
+            {
+                player.RecieveDmg(projectiles[i].Damage);
+                projectiles.RemoveAt(i);
+                continue;
+            }
+            if (r.GetTile(projectiles[i].GetCircleCenter()).DoCollision == true)
+            {
+                projectiles.RemoveAt(i);
+            }
+        }
+        for (int i = player.Projectiles.Count - 1; i >= 0; i--)
+        {
+            player.Projectiles[i].Update();
 
-			if (ObjectCollision.CircleCircleCollision(player.Projectiles[i], enemy))
-			{
-				// HOnim HOdne HOdin - SANTA REFERENCE
-				player.RecieveDmg(player.Projectiles[i].Damage);
-				player.Projectiles.RemoveAt(i);
-				continue;
-			}
-			if (r.GetTile(player.Projectiles[i].GetCircleCenter()).DoCollision == true)
-			{
-				player.Projectiles.RemoveAt(i);
-			}
-		}
-		enemy.Update(player.Position + player.Size / 2);
+            if (ObjectCollision.CircleCircleCollision(player.Projectiles[i], enemy))
+            {
+                // HOnim HOdne HOdin - SANTA REFERENCE
+                player.RecieveDmg(player.Projectiles[i].Damage);
+                player.Projectiles.RemoveAt(i);
+                continue;
+            }
+            if (r.GetTile(player.Projectiles[i].GetCircleCenter()).DoCollision == true)
+            {
+                player.Projectiles.RemoveAt(i);
+            }
+        }
+        enemy.Update(player.Position + player.Size / 2);
         if (enemy.ReadyToAttack())
             projectiles.Add(enemy.Attack());
 
@@ -104,7 +116,6 @@ public class TBoGVGame : Game
 
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
         r.Draw(_spriteBatch);
-        //_spriteBatch.Draw(wallTile.getTexture(), new Vector2(0, 0), Color.White);
         player.Draw(_spriteBatch);
         enemy.Draw(_spriteBatch);
         foreach (Projectile projectile in player.Projectiles)

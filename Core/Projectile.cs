@@ -6,15 +6,16 @@ using System;
 
 namespace TBoGV;
 
-internal class Projectile : Entity
+internal class Projectile : Entity, IDraw
 {
-	static Texture2D Sprite;
-	static readonly string SpriteName = "projectile";
+	public const string SpriteName = "projectile";
+	public Texture2D Sprite { get; protected set; }
 	public bool ShotByPlayer;
 	public int Damage { get; set; }
 
 	public Projectile(Vector2 position, Vector2 direction, int damage)
 	{
+		Sprite = TextureManager.GetTexture(SpriteName);
 		Size = new Vector2(7, 7);
 		Position = position - Size / 2;
 		Direction = direction;
@@ -24,10 +25,6 @@ internal class Projectile : Entity
 	public void Update()
 	{
 		Position += Direction * MovementSpeed;
-	}
-	public static void Load(ContentManager content)
-	{
-		Sprite = content.Load<Texture2D>(SpriteName);
 	}
 	public void Draw(SpriteBatch spriteBatch)
 	{

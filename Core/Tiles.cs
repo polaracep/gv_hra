@@ -1,6 +1,5 @@
-using System.Collections.Generic;
+using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TBoGV;
@@ -8,7 +7,8 @@ namespace TBoGV;
 public abstract class Tile
 {
     protected Vector2 screenPos;
-    protected int spriteId;
+    protected string SpriteName;
+    public Texture2D Sprite { get; protected set; }
     public bool DoCollision { get; protected set; } = false;
 
     // Vsechny tiles50x50.
@@ -19,84 +19,66 @@ public abstract class Tile
         DoCollision = collide;
     }
 
-    public abstract Texture2D getTexture();
-
     public static Vector2 GetSize()
     {
         return tileSize;
     }
 }
 
-/*
- * Tady varil ChatGPT o3
- */
-// Generic base class that gives each concrete type its own static sprite list.
-public abstract class Tile<T> : Tile where T : Tile<T>
-{
-    protected static List<Texture2D> sprites = new List<Texture2D>();
-
-    protected Tile(bool collide) : base(collide) { }
-
-    public override Texture2D getTexture()
-    {
-        return sprites[spriteId];
-    }
-
-    // Optional: You can add helper methods to manage sprites for type T.
-    public static void AddSprite(Texture2D sprite)
-    {
-        sprites.Add(sprite);
-    }
-}
-
-public class TileFloor : Tile<TileFloor>, ITexture
+public class TileFloor : Tile, IDraw
 {
     public TileFloor(FloorTypes floor) : base(false)
     {
-        this.spriteId = (int)floor;
+        switch (floor)
+        {
+            case FloorTypes.BASIC:
+                Console.WriteLine(TextureManager.GetTexture("tile"));
+                Sprite = TextureManager.GetTexture("tile");
+                break;
+            default:
+                throw new Exception();
+        }
     }
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(this.getTexture(), this.screenPos, Color.White);
+        spriteBatch.Draw(Sprite, this.screenPos, Color.White);
     }
-    public static void Load(ContentManager content)
-    {
-        TileFloor.sprites.Add(content.Load<Texture2D>("tile"));
-    }
-
 }
 
-public class TileWall : Tile<TileWall>, ITexture
+public class TileWall : Tile, IDraw
 {
     public TileWall(WallTypes wall) : base(true)
     {
-        this.spriteId = (int)wall;
+        switch (wall)
+        {
+            case WallTypes.BASIC:
+                Sprite = TextureManager.GetTexture("wall");
+                break;
+            default:
+                throw new Exception();
+        }
     }
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(this.getTexture(), this.screenPos, Color.White);
-    }
-    public static void Load(ContentManager content)
-    {
-        TileWall.sprites.Add(content.Load<Texture2D>("wall"));
+        spriteBatch.Draw(Sprite, this.screenPos, Color.White);
     }
 }
 
-public class TileDoor : Tile<TileDoor>, ITexture, IInteractable
+public class TileDoor : Tile, IDraw, IInteractable
 {
     public TileDoor(DoorTypes door) : base(true)
     {
-        this.spriteId = (int)door;
-    }
-
-    public static void Load(ContentManager content)
-    {
-        TileDoor.sprites.Add(content.Load<Texture2D>("door"));
+        switch (door)
+        {
+            case DoorTypes.BASIC:
+                Sprite = TextureManager.GetTexture("door");
+                break;
+        }
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(this.getTexture(), this.screenPos, Color.White);
+        spriteBatch.Draw(Sprite, this.screenPos, Color.White);
     }
 
     public void Interact(Entity e)

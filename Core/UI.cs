@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TBoGV.Core
 {
-    internal class UI : ITexture
+    internal class UI : IDraw
     {
         public UI() { }
         public void Update(Camera camera)

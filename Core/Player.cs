@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TBoGV;
 
-internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
+internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 {
 	static Texture2D Sprite;
 	static string SpriteName = "vitek-nobg";
@@ -29,30 +29,42 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		Projectiles = new List<Projectile>();
 		AttackSpeed = 2;
 		AttackDmg = 1;
+		Sprite = TextureManager.GetTexture("vitek-nobg");
 	}
+	Vector2 InteractionPoint = Vector2.Zero;
 	public void Update(KeyboardState keyboardState, MouseState mouseState, Matrix transform, Room room)
 	{
 		int dx = 0, dy = 0;
+
+		InteractionPoint = Position + (Direction * 50) + Size / 2;
+
 		if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
 		{
-			dx = -MovementSpeed;
+			dx -= MovementSpeed;
 		}
 		if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
 		{
-			dx = MovementSpeed;
+			dx += MovementSpeed;
 		}
 		if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
 		{
-			dy = -MovementSpeed;
+			dy -= MovementSpeed;
 		}
 		if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
 		{
-			dy = MovementSpeed;
+			dy += MovementSpeed;
 		}
 		if (keyboardState.IsKeyDown(Keys.E))
 		{
-			room.GetTile(Position + (Direction * 10));
+			Tile t = room.GetTile(InteractionPoint);
+			if (t is IInteractable)
+			{
+
+			}
 		}
+
+		/* === */
+
 		Vector2 newPosition = Position;
 		if (dx != 0)
 		{
@@ -81,13 +93,12 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		if (ReadyToAttack() && mouseState.LeftButton == ButtonState.Pressed)
 			Projectiles.Add(Attack());
 	}
-	public static void Load(ContentManager content)
-	{
-		Sprite = content.Load<Texture2D>(SpriteName);
-	}
+
+
 	public void Draw(SpriteBatch spriteBatch)
 	{
 		spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
+		spriteBatch.Draw(TextureManager.GetTexture("projectile"), InteractionPoint, Color.White);
 	}
 	public bool ReadyToAttack()
 	{
