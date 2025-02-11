@@ -62,7 +62,7 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 			if (room.GetTile(InteractionPoint) is IInteractable)
 			{
 				IInteractable tile = (IInteractable)room.GetTile(InteractionPoint);
-				tile.Interact(this);
+				tile.Interact(this, room);
 			}
 		}
 

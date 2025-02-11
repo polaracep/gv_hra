@@ -77,7 +77,7 @@ internal class ScreenGame : Screen
         keyboardState = Keyboard.GetState();
         if (KeyReleased(Keys.Escape))
             inGameMenu.Active = !inGameMenu.Active;
-        if (!inGameMenu.Active || (Frame%15 == 0))
+        if (!inGameMenu.Active || (Frame % 15 == 0))
         {
             player.Update(keyboardState, mouseState, _camera.Transform, r);
             r.Update();

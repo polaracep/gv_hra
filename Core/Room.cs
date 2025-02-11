@@ -22,7 +22,7 @@ public abstract class Room : IDraw
         this.GenerateRoom();
     }
 
-    protected abstract void GenerateRoom();
+
     public Vector2 GetTilePos(Vector2 coords)
     {
         if (float.IsNaN(coords.X) || float.IsNaN(coords.Y))
@@ -54,6 +54,11 @@ public abstract class Room : IDraw
     public virtual void AddEnemy(Enemy enemy)
     {
         enemies.Add(enemy);
+    }
+    public virtual void ResetRoom()
+    {
+        this.ClearRoom();
+        this.GenerateRoom();
     }
 
     public void Update()
@@ -113,6 +118,13 @@ public abstract class Room : IDraw
         }
 
     }
+    protected abstract void GenerateRoom();
+    protected virtual void ClearRoom()
+    {
+        this.projectiles.Clear();
+        this.enemies.Clear();
+    }
+
     public virtual void Draw(SpriteBatch spriteBatch)
     {
         for (int i = 0; i < Dimensions.X; i++)

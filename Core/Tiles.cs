@@ -72,11 +72,11 @@ public class TileDoor : Tile, IDraw, IInteractable
         }
     }
 
-    public void Interact(Entity e)
+    public void Interact(Entity e, Room r)
     {
         // put player in the left-top corne
         e.Position = tileSize;
-
+        r.ResetRoom();
     }
 }
 
@@ -86,7 +86,7 @@ public class TileHeal : Tile, IDraw, IInteractable
     {
         this.Sprite = TextureManager.GetTexture("heal");
     }
-    public void Interact(Entity e)
+    public void Interact(Entity e, Room r)
     {
         if (e is Player)
         {
@@ -94,4 +94,5 @@ public class TileHeal : Tile, IDraw, IInteractable
             p.Heal(1);
         }
     }
+
 }

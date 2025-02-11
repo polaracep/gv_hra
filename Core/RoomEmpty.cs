@@ -11,6 +11,7 @@ public class RoomEmpty : Room, IDraw
 
     protected override void GenerateRoom()
     {
+        this.ClearRoom();
         RoomMap = new Tile[(int)Dimensions.X, (int)Dimensions.Y];
         for (int i = 1; i < Dimensions.X - 1; i++)
             for (var j = 1; j < Dimensions.Y - 1; j++)
