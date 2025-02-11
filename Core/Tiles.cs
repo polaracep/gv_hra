@@ -20,7 +20,7 @@ public abstract class Tile
 
     public abstract Texture2D getTexture();
 
-    public Vector2 GetSize()
+    public static Vector2 GetSize()
     {
         return tileSize;
     }

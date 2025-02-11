@@ -20,7 +20,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 	public List<Projectile> Projectiles { get; set; }
 	public Player(Vector2 position)
 	{
-		Position = Vector2.Zero;
+		Position = position;
 		Size = new Vector2(50, 50);
 		Hp = 3;
 		MovementSpeed = 4;
@@ -28,23 +28,39 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		AttackSpeed = 2;
 		AttackDmg = 1;
 	}
-	public void Update(KeyboardState keyboardState, MouseState mouseState, Matrix transform)
+	public void Update(KeyboardState keyboardState, MouseState mouseState, Matrix transform, Room room)
 	{
+		int dx = 0, dy = 0;
 		if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
 		{
-			Position.X -= MovementSpeed;
+			dx = -MovementSpeed;
 		}
 		if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
 		{
-			Position.X += MovementSpeed;
+			dx = MovementSpeed;
 		}
 		if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
 		{
-			Position.Y -= MovementSpeed;
+			dy = -MovementSpeed;
 		}
 		if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
 		{
-			Position.Y += MovementSpeed;
+			dy = MovementSpeed;
+		}
+		Vector2 newPosition = Position;
+		if (dx != 0)
+		{
+			newPosition.X += dx;
+			if (!room.GetTile(newPosition).DoCollision && !room.GetTile(newPosition + Size).DoCollision)
+				Position.X = newPosition.X;
+		}
+		newPosition = Position;
+		// Try moving on the Y-axis next
+		if (dy != 0)
+		{
+			newPosition.Y += dy;
+			if (!room.GetTile(newPosition).DoCollision && !room.GetTile(newPosition + Size).DoCollision)
+				Position.Y = newPosition.Y;
 		}
 		Vector2 screenMousePos = new Vector2(mouseState.X, mouseState.Y);
 		Vector2 worldMousePos = Vector2.Transform(screenMousePos, Matrix.Invert(transform));
@@ -52,9 +68,10 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		Vector2 direction = worldMousePos - Position - Size / 2;
 
 		if (direction != Vector2.Zero)
+		{ 
 			direction.Normalize(); // Normalize to get unit direction vector
-		Direction = direction;
-
+			Direction = direction;
+		}
 		if (ReadyToAttack() && mouseState.LeftButton == ButtonState.Pressed)
 			Projectiles.Add(Attack());
 	}
