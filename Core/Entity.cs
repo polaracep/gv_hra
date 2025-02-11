@@ -5,7 +5,7 @@ using System;
 
 namespace TBoGV;
 
-abstract class Entity
+public abstract class Entity
 {
 	public Vector2 Position;
 	public Vector2 Direction;
