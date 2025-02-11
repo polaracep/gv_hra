@@ -47,7 +47,6 @@ public class TBoGVGame : Game
         TileWall.Load(Content);
         TileFloor.Load(Content);
         TileDoor.Load(Content);
-
     }
 
     protected override void Update(GameTime gameTime)
