@@ -9,7 +9,8 @@ public class TBoGVGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    RoomEmpty r = new RoomEmpty();
+	private Camera _camera;
+	RoomEmpty r = new RoomEmpty();
     Player player;
     List<Projectile> projectiles;
     Enemy enemy;
@@ -18,7 +19,9 @@ public class TBoGVGame : Game
     public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
-        Content.RootDirectory = "Content/Textures";
+		
+
+		Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
         player = new Player(new Vector2(0, 0));
 
@@ -30,7 +33,8 @@ public class TBoGVGame : Game
     protected override void Initialize()
     {
         base.Initialize();
-    }
+		_camera = new Camera(GraphicsDevice.Viewport);
+	}
 
     protected override void LoadContent()
     {
@@ -59,15 +63,17 @@ public class TBoGVGame : Game
         enemy.Update(player.Position + player.Size / 2);
         if (enemy.ReadyToAttack())
             projectiles.Add(enemy.Attack());
-        base.Update(gameTime);
-    }
+        
+		_camera.Update(player.Position + player.Size / 2);
+		base.Update(gameTime);
+	}
 
     protected override void Draw(GameTime gameTime)
     {
         //TileWall wallTile = new TileWall();
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin();
+        _spriteBatch.Begin(transformMatrix: _camera.Transform);
         r.Draw(_spriteBatch);
         //_spriteBatch.Draw(wallTile.getTexture(), new Vector2(0, 0), Color.White);
         player.Draw(_spriteBatch);
