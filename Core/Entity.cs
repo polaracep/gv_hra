@@ -11,5 +11,4 @@ public abstract class Entity
 	public Vector2 Direction;
 	public Vector2 Size;
 	public int MovementSpeed;
-	public int Hp { get; set; } // tohle removnout
 }

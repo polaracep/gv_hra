@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using TBoGV.Core;
 
 namespace TBoGV;
 
@@ -59,9 +60,17 @@ public class TBoGVGame : Game
         player.Update(keyboardState, mouseState, _camera.Transform, r);
         foreach (Projectile projectile in player.Projectiles)
             projectile.Update();
-        foreach (Projectile projectile in projectiles)
-            projectile.Update();
-        enemy.Update(player.Position + player.Size / 2);
+		for (int i = projectiles.Count - 1; i >= 0; i--)
+		{
+			projectiles[i].Update();
+
+			if (ObjectCollision.CircleCircleCollision(projectiles[i], player))
+			{
+				player.RecieveDmg(projectiles[i].Damage);
+				projectiles.RemoveAt(i); // ✅ Safe removal
+			}
+		}
+		enemy.Update(player.Position + player.Size / 2);
         if (enemy.ReadyToAttack())
             projectiles.Add(enemy.Attack());
 
