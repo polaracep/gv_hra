@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TBoGV;
@@ -14,7 +13,7 @@ internal class RangedEnemy : Enemy, IDraw
         Size = new Vector2(50, 50);
         Hp = 3;
         MovementSpeed = 4;
-        AttackSpeed = 200;
+        AttackSpeed = 300;
         AttackDmg = 1;
         Sprite = TextureManager.GetTexture(SpriteName);
     }
@@ -28,23 +27,18 @@ internal class RangedEnemy : Enemy, IDraw
         LastAttackTime = DateTime.UtcNow;
         return new Projectile(Position + Size / 2, Direction, AttackDmg);
     }
-
     public override void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
     }
-
-
     public override bool ReadyToAttack()
     {
         return (DateTime.UtcNow - LastAttackTime).TotalMilliseconds >= AttackSpeed;
     }
-
     public override void RecieveDmg()
     {
         throw new NotImplementedException();
     }
-
     public override void SetPosition(Vector2 postition)
     {
         throw new NotImplementedException();
