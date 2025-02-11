@@ -28,7 +28,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		Hp = MaxHp = 9;
 		MovementSpeed = 4;
 		Projectiles = new List<Projectile>();
-		AttackSpeed = 2;
+		AttackSpeed = 200;
 		AttackDmg = 1;
 		Sprite = TextureManager.GetTexture("vitek-nobg");
 	}

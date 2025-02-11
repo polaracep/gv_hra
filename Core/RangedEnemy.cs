@@ -6,7 +6,6 @@ namespace TBoGV;
 internal class RangedEnemy : Enemy, IDraw
 {
     static Texture2D Sprite;
-    static string SpriteName = "vitek-nobg";
     public RangedEnemy(Vector2 position)
     {
         Position = position;
@@ -15,7 +14,7 @@ internal class RangedEnemy : Enemy, IDraw
         MovementSpeed = 4;
         AttackSpeed = 300;
         AttackDmg = 1;
-        Sprite = TextureManager.GetTexture(SpriteName);
+        Sprite = TextureManager.GetTexture("vitek-nobg");
     }
     public override void Update(Vector2 playerPosition)
     {
