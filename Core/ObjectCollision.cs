@@ -8,7 +8,7 @@ namespace TBoGV.Core
 		// 📌 Rectangle vs. Rectangle (Entity)
 		public static bool RectRectCollision(Entity entity1, Entity entity2)
 		{
-			return RectRectCollision(GetRectangle(entity1), GetRectangle(entity2));
+			return RectRectCollision(entity1.GetRectangle(), entity2.GetRectangle());
 		}
 
 		// 📌 Rectangle vs. Rectangle (Rectangle)
@@ -20,8 +20,8 @@ namespace TBoGV.Core
 		// 📌 Circle vs. Circle (Entity)
 		public static bool CircleCircleCollision(Entity entity1, Entity entity2)
 		{
-			return CircleCircleCollision(GetCircleCenter(entity1), GetRadius(entity1),
-										 GetCircleCenter(entity2), GetRadius(entity2));
+			return CircleCircleCollision(entity1.GetCircleCenter(), entity1.GetRadius(),
+										 entity2.GetCircleCenter(), entity2.GetRadius());
 		}
 
 		// 📌 Circle vs. Circle (Vector2, float)
@@ -35,13 +35,13 @@ namespace TBoGV.Core
 		// 📌 Rectangle vs. Circle (Entity, Entity)
 		public static bool RectCircleCollision(Entity rectEntity, Entity circleEntity)
 		{
-			return RectCircleCollision(GetRectangle(rectEntity), GetCircleCenter(circleEntity), GetRadius(circleEntity));
+			return RectCircleCollision(rectEntity.GetRectangle(), circleEntity.GetCircleCenter(), circleEntity.GetRadius());
 		}
 
 		// 📌 Rectangle vs. Circle (Rectangle, Entity)
 		public static bool RectCircleCollision(Rectangle rect, Entity circleEntity)
 		{
-			return RectCircleCollision(rect, GetCircleCenter(circleEntity), GetRadius(circleEntity));
+			return RectCircleCollision(rect, circleEntity.GetCircleCenter(), circleEntity.GetRadius());
 		}
 
 		// 📌 Rectangle vs. Circle (Rectangle, Vector2, float)
@@ -60,7 +60,7 @@ namespace TBoGV.Core
 		// 📌 Point inside Rectangle (Entity)
 		public static bool PointInRect(Vector2 point, Entity entity)
 		{
-			return PointInRect(point, GetRectangle(entity));
+			return PointInRect(point, entity.GetRectangle());
 		}
 
 		// 📌 Point inside Rectangle (Rectangle)
@@ -72,7 +72,7 @@ namespace TBoGV.Core
 		// 📌 Point inside Circle (Entity)
 		public static bool PointInCircle(Vector2 point, Entity entity)
 		{
-			return PointInCircle(point, GetCircleCenter(entity), GetRadius(entity));
+			return PointInCircle(point, entity.GetCircleCenter(), entity.GetRadius());
 		}
 
 		// 📌 Point inside Circle (Vector2, float)
@@ -80,19 +80,6 @@ namespace TBoGV.Core
 		{
 			float distanceSquared = Vector2.DistanceSquared(point, circleCenter);
 			return distanceSquared <= (radius * radius);
-		}
-
-		private static Rectangle GetRectangle(Entity entity)
-		{
-			return new Rectangle((int)entity.Position.X, (int)entity.Position.Y, (int)entity.Size.X, (int)entity.Size.Y);
-		}
-		private static Vector2 GetCircleCenter(Entity entity)
-		{
-			return entity.Position + entity.Size / 2;
-		}
-		private static float GetRadius(Entity entity)
-		{
-			return Math.Min(entity.Size.X, entity.Size.Y) / 2;
 		}
 	}
 }

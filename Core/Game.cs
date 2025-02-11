@@ -26,7 +26,7 @@ public class TBoGVGame : Game
         IsMouseVisible = true;
         player = new Player(new Vector2(50, 50));
 
-        enemy = new RangedEnemy(new Vector2(0, 100));
+        enemy = new RangedEnemy(new Vector2(100, 100));
         projectiles = new List<Projectile>();
 
     }
@@ -58,8 +58,7 @@ public class TBoGVGame : Game
         mouseState = Mouse.GetState();
         keyboardState = Keyboard.GetState();
         player.Update(keyboardState, mouseState, _camera.Transform, r);
-        foreach (Projectile projectile in player.Projectiles)
-            projectile.Update();
+
 		for (int i = projectiles.Count - 1; i >= 0; i--)
 		{
 			projectiles[i].Update();
@@ -67,7 +66,27 @@ public class TBoGVGame : Game
 			if (ObjectCollision.CircleCircleCollision(projectiles[i], player))
 			{
 				player.RecieveDmg(projectiles[i].Damage);
-				projectiles.RemoveAt(i); // ✅ Safe removal
+				projectiles.RemoveAt(i); 
+				continue;
+			}
+			if (r.GetTile(projectiles[i].GetCircleCenter()).DoCollision == true)
+			{
+				projectiles.RemoveAt(i);
+			}
+		}
+		for (int i = player.Projectiles.Count - 1; i >= 0; i--)
+		{
+			player.Projectiles[i].Update();
+
+			if (ObjectCollision.CircleCircleCollision(player.Projectiles[i], enemy))
+			{
+				player.RecieveDmg(player.Projectiles[i].Damage);
+				player.Projectiles.RemoveAt(i);
+				continue;
+			}
+			if (r.GetTile(player.Projectiles[i].GetCircleCenter()).DoCollision == true)
+			{
+				player.Projectiles.RemoveAt(i);
 			}
 		}
 		enemy.Update(player.Position + player.Size / 2);
