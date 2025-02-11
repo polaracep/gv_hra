@@ -28,7 +28,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		AttackSpeed = 2;
 		AttackDmg = 1;
 	}
-	public void Update(KeyboardState keyboardState, MouseState mouseState)
+	public void Update(KeyboardState keyboardState, MouseState mouseState, Matrix transform)
 	{
 		if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
 		{
@@ -46,8 +46,10 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		{
 			Position.Y += MovementSpeed;
 		}
+		Vector2 screenMousePos = new Vector2(mouseState.X, mouseState.Y);
+		Vector2 worldMousePos = Vector2.Transform(screenMousePos, Matrix.Invert(transform));
 
-		Vector2 direction = new Vector2(mouseState.X, mouseState.Y) - Position - Size / 2;
+		Vector2 direction = worldMousePos - Position - Size / 2;
 
 		if (direction != Vector2.Zero)
 			direction.Normalize(); // Normalize to get unit direction vector

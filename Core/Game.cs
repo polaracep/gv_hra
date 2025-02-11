@@ -55,7 +55,7 @@ public class TBoGVGame : Game
             Exit();
         mouseState = Mouse.GetState();
         keyboardState = Keyboard.GetState();
-        player.Update(keyboardState, mouseState);
+        player.Update(keyboardState, mouseState,_camera.Transform);
         foreach (Projectile projectile in player.Projectiles)
             projectile.Update();
         foreach (Projectile projectile in projectiles)
