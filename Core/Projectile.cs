@@ -11,7 +11,7 @@ internal class Projectile : Entity
 	static Texture2D Sprite;
 	static readonly string SpriteName = "projectile";
 	public bool ShotByPlayer;
-	int Damage { get; set; }
+	public int Damage { get; set; }
 
 	public Projectile(Vector2 position, Vector2 direction, int damage)
 	{

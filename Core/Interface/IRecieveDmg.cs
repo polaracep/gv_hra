@@ -2,5 +2,5 @@
 internal interface IRecieveDmg
 {
 	int Hp { get; set; }
-	void RecieveDmg();
+	void RecieveDmg(int damage);
 }

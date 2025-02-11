@@ -18,6 +18,8 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 	public DateTime LastAttackTime { get; set; }
 
 	public List<Projectile> Projectiles { get; set; }
+	public int Hp { get; set; }
+
 	public Player(Vector2 position)
 	{
 		Position = position;
@@ -95,9 +97,9 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 
         return projectile;
 	}
-	public void RecieveDmg()
+	public void RecieveDmg(int damage)
 	{
-
+		Hp -= damage;
 	}
 }
 
