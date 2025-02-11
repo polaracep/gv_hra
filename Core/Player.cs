@@ -49,6 +49,10 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		{
 			dy = MovementSpeed;
 		}
+		if (keyboardState.IsKeyDown(Keys.E))
+		{
+			room.GetTile(Position + (Direction * 10));
+		}
 		Vector2 newPosition = Position;
 		if (dx != 0)
 		{
@@ -70,7 +74,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		Vector2 direction = worldMousePos - Position - Size / 2;
 
 		if (direction != Vector2.Zero)
-		{ 
+		{
 			direction.Normalize(); // Normalize to get unit direction vector
 			Direction = direction;
 		}
@@ -83,9 +87,9 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 	}
 	public void Draw(SpriteBatch spriteBatch)
 	{
-        spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
-    }
-    public bool ReadyToAttack()
+		spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
+	}
+	public bool ReadyToAttack()
 	{
 		return (DateTime.UtcNow - LastAttackTime).TotalMilliseconds >= AttackSpeed;
 	}
@@ -95,7 +99,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, ITexture
 		Projectile projectile = new Projectile(Position + Size / 2, Direction, AttackDmg);
 		projectile.ShotByPlayer = true;
 
-        return projectile;
+		return projectile;
 	}
 	public void RecieveDmg(int damage)
 	{

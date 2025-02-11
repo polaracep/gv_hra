@@ -82,7 +82,7 @@ public class TileWall : Tile<TileWall>, ITexture
     }
 }
 
-public class TileDoor : Tile<TileDoor>, ITexture
+public class TileDoor : Tile<TileDoor>, ITexture, IInteractable
 {
     public TileDoor(DoorTypes door) : base(true)
     {
@@ -97,5 +97,10 @@ public class TileDoor : Tile<TileDoor>, ITexture
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(this.getTexture(), this.screenPos, Color.White);
+    }
+
+    public void Interact(Entity e)
+    {
+        e.Position = Vector2.Zero;
     }
 }

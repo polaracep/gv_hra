@@ -15,17 +15,9 @@ public class RoomEmpty : Room
                 Tile t = RoomMap[i, j];
                 spriteBatch.Draw(t.getTexture(), new Vector2(i * Tile.GetSize().X, j * Tile.GetSize().Y), Color.White);
             }
-
     }
 
-	public override Tile GetTile(Vector2 coords)
-	{
-		if(coords.X >= Dimensions.X*Tile.GetSize().X || coords.Y >= Dimensions.Y * Tile.GetSize().Y || coords.X < 0 || coords.Y < 0)
-		{ return new TileWall(WallTypes.BASIC); }
-		return RoomMap[(int)(coords.X / Tile.GetSize().X), (int)(coords.Y / Tile.GetSize().Y)];
-	}
-
-	protected override void GenerateRoom()
+    protected override void GenerateRoom()
     {
         RoomMap = new Tile[(int)Dimensions.X, (int)Dimensions.Y];
         for (int i = 1; i < Dimensions.X - 1; i++)
