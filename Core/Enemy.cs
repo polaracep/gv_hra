@@ -10,6 +10,7 @@ abstract internal class Enemy : Entity, IRecieveDmg, IDealDmg
     public int AttackDmg { get; set; }
 	public int Hp { get; set; }
     public int MaxHp { get; set; }
+    public int XpValue { get; set; }
 
     public abstract void Draw(SpriteBatch spriteBatch);
     public abstract void RecieveDmg();

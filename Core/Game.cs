@@ -17,11 +17,15 @@ public class TBoGVGame : Game
     List<Projectile> projectiles;
     List<Enemy> enemies;
     UI UI;
+    Screen screenGame, screenCurrent;
+    InGameMenu inGameMenu;
     MouseState mouseState;
     KeyboardState keyboardState;
     public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
+        
+        screenCurrent = screenGame = new ScreenGame(_graphics);
 
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
@@ -35,13 +39,13 @@ public class TBoGVGame : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        TextureManager.Load(Content);
+        screenGame.Load(Content);
     }
 
     // Run after LoadContent
     protected override void BeginRun()
     {
+        screenCurrent.BeginRun();
         projectiles = new List<Projectile>();
         enemies = new List<Enemy>();
         Enemy enemy;
@@ -57,7 +61,7 @@ public class TBoGVGame : Game
         r.AddTile(new TileHeal(), new Vector2(5, 5));
         UI = new UI();
         _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
-
+        inGameMenu = new InGameMenu(GraphicsDevice.Viewport);
         base.BeginRun();
     }
 
@@ -101,6 +105,7 @@ public class TBoGVGame : Game
                     player.Projectiles.RemoveAt(i); 
                     if (enemies[j].IsDead())
                     {
+                        player.Kill(enemies[j].XpValue);
                         enemies.RemoveAt(j);
                         // TODO player.Kill() dostani xp, dropy atd`    
                     }
@@ -139,6 +144,7 @@ public class TBoGVGame : Game
 
         _spriteBatch.Begin();
         UI.Draw(_spriteBatch);
+        inGameMenu.Draw(_spriteBatch);
         _spriteBatch.End();
 
         // TODO: Add your drawing code here

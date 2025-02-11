@@ -125,6 +125,10 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		}
 
 	}
+	public void Kill(int xpGain)
+	{
+		Xp += xpGain;
+	}
 
 	public void Heal(uint healAmount)
 	{

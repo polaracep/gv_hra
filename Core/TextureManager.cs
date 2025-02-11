@@ -19,6 +19,7 @@ public static class TextureManager
             "taunt",
             "admiration",
             "heal",
+            "blackSquare"
         };
 
         foreach (string name in names)

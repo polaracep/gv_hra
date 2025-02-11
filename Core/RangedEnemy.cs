@@ -15,6 +15,7 @@ internal class RangedEnemy : Enemy, IDraw
         AttackSpeed = 300;
         AttackDmg = 1;
         Sprite = TextureManager.GetTexture("vitek-nobg");
+        XpValue = 1;
     }
     public override void Update(Vector2 playerPosition)
     {
