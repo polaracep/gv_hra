@@ -39,9 +39,9 @@ internal class RangedEnemy : Enemy, IDraw
     {
         throw new NotImplementedException();
     }
-    public override void SetPosition(Vector2 postition)
-    {
-        throw new NotImplementedException();
-    }
 
+    public override bool IsDead()
+    {
+        return Hp <= 0;
+    }
 }

@@ -120,7 +120,6 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 			Hp -= damage;
             LastRecievedDmgTime = DateTime.UtcNow;
         }
-
 	}
 }
 

@@ -15,7 +15,7 @@ public class TBoGVGame : Game
     Player player;
     RoomEmpty r;
     List<Projectile> projectiles;
-    Enemy enemy;
+    List<Enemy> enemies;
     UI UI;
     MouseState mouseState;
     KeyboardState keyboardState;
@@ -25,11 +25,6 @@ public class TBoGVGame : Game
 
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
-        player = new Player(new Vector2(50, 50));
-
-        enemy = new RangedEnemy(new Vector2(0, 100));
-        projectiles = new List<Projectile>();
-
     }
 
     protected override void Initialize()
@@ -41,21 +36,23 @@ public class TBoGVGame : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
         TextureManager.Load(Content);
     }
 
     // Run after LoadContent
     protected override void BeginRun()
     {
-        player = new Player(new Vector2(50, 50));
-
-        enemy = new RangedEnemy(new Vector2(100, 100));
         projectiles = new List<Projectile>();
-
+        enemies = new List<Enemy>();
+        Enemy enemy;
+        for (int i = 1; i < 19; i++)
+        {
+            enemy = new RangedEnemy(new Vector2(50*i, 50));
+            enemies.Add(enemy);
+        }
+        
         player = new Player(new Vector2(50, 350));
-        enemy = new RangedEnemy(new Vector2(50, 50));
-        projectiles = new List<Projectile>();
+
         r = new RoomEmpty();
         UI = new UI();
         _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
@@ -90,22 +87,33 @@ public class TBoGVGame : Game
         for (int i = player.Projectiles.Count - 1; i >= 0; i--)
         {
             player.Projectiles[i].Update();
-
-            if (ObjectCollision.CircleCircleCollision(player.Projectiles[i], enemy))
-            {
-                // HOnim HOdne HOdin - SANTA REFERENCE
-                player.RecieveDmg(player.Projectiles[i].Damage);
-                player.Projectiles.RemoveAt(i);
-                continue;
-            }
             if (r.GetTile(player.Projectiles[i].GetCircleCenter()).DoCollision == true)
             {
                 player.Projectiles.RemoveAt(i);
+                continue;
             }
+            for (int j = 0; j < enemies.Count; j++)
+                if (ObjectCollision.CircleCircleCollision(player.Projectiles[i], enemies[j]))
+                {
+                    // HOnim HOdne HOdin - SANTA REFERENCE
+                    enemies[j].RecieveDmg(player.Projectiles[i].Damage);
+                    player.Projectiles.RemoveAt(i); 
+                    if (enemies[j].IsDead())
+                    {
+                        enemies.RemoveAt(j);
+                        // TODO player.Kill() dostani xp, dropy atd
+                    }
+                }
+
         }
-        enemy.Update(player.Position + player.Size / 2);
-        if (enemy.ReadyToAttack())
-            projectiles.Add(enemy.Attack());
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.Update(player.Position + player.Size / 2);
+
+            if (enemy.ReadyToAttack())
+                projectiles.Add(enemy.Attack());
+        }
+
         UI.Update(player);
         _camera.Update(player.Position + player.Size / 2);
         base.Update(gameTime);
@@ -119,7 +127,8 @@ public class TBoGVGame : Game
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
         r.Draw(_spriteBatch);
         player.Draw(_spriteBatch);
-        enemy.Draw(_spriteBatch);
+        foreach (Enemy enemy in enemies)
+            enemy.Draw(_spriteBatch);
         foreach (Projectile projectile in player.Projectiles)
             projectile.Draw(_spriteBatch);
         foreach (Projectile projectile in projectiles)
