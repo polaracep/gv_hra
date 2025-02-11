@@ -1,10 +1,9 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TBoGV;
 
-public class RoomEmpty : Room, ITexture
+public class RoomEmpty : Room
 {
     public RoomEmpty() : base(new Vector2(14, 9)) { }
 
@@ -44,5 +43,7 @@ public class RoomEmpty : Room, ITexture
             RoomMap[0, i] = new TileWall(WallTypes.BASIC);
             RoomMap[(int)Dimensions.X - 1, i] = new TileWall(WallTypes.BASIC);
         }
+
+        RoomMap[0, 4] = new TileDoor(DoorTypes.BASIC);
     }
 }
