@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TBoGV;
-internal class RangedEnemy : Enemy
+internal class RangedEnemy : Enemy, IDraw
 {
     static Texture2D Sprite;
     static string SpriteName = "vitek-nobg";
@@ -16,6 +16,7 @@ internal class RangedEnemy : Enemy
         MovementSpeed = 4;
         AttackSpeed = 20;
         AttackDmg = 1;
+        Sprite = TextureManager.GetTexture(SpriteName);
     }
     public override void Update(Vector2 playerPosition)
     {
@@ -47,12 +48,6 @@ internal class RangedEnemy : Enemy
     public override void SetPosition(Vector2 postition)
     {
         throw new NotImplementedException();
-    }
-
-
-    public static void Load(ContentManager content)
-    {
-        Sprite = content.Load<Texture2D>(SpriteName);
     }
 
 }

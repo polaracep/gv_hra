@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TBoGV;
 
-public class RoomEmpty : Room
+public class RoomEmpty : Room, IDraw
 {
     public RoomEmpty() : base(new Vector2(14, 9)) { }
 
@@ -13,7 +13,7 @@ public class RoomEmpty : Room
             for (var j = 0; j < Dimensions.Y; j++)
             {
                 Tile t = RoomMap[i, j];
-                spriteBatch.Draw(t.getTexture(), new Vector2(i * Tile.GetSize().X, j * Tile.GetSize().Y), Color.White);
+                spriteBatch.Draw(t.Sprite, new Vector2(i * Tile.GetSize().X, j * Tile.GetSize().Y), Color.White);
             }
     }
 
