@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -5,7 +7,8 @@ namespace TBoGV;
 
 public class RoomEmpty : Room, IDraw
 {
-    public RoomEmpty() : base(new Vector2(20, 15)) { }
+    public RoomEmpty(Vector2 dimensions) : base(dimensions) { }
+    public RoomEmpty() : base(new Vector2(13, 17)) { }
 
     public void Draw(SpriteBatch spriteBatch)
     {
@@ -38,4 +41,18 @@ public class RoomEmpty : Room, IDraw
 
         RoomMap[0, 4] = new TileDoor(DoorTypes.BASIC);
     }
+
+    public bool AddTile(Tile tile, Vector2 position)
+    {
+        try
+        {
+            RoomMap[(int)position.X, (int)position.Y] = tile;
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
 }

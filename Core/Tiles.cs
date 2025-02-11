@@ -23,6 +23,10 @@ public abstract class Tile
     {
         return tileSize;
     }
+    public virtual void Draw(SpriteBatch spriteBatch)
+    {
+        spriteBatch.Draw(Sprite, this.screenPos, Color.White);
+    }
 }
 
 public class TileFloor : Tile, IDraw
@@ -58,10 +62,7 @@ public class TileWall : Tile, IDraw
                 throw new Exception();
         }
     }
-    public void Draw(SpriteBatch spriteBatch)
-    {
-        spriteBatch.Draw(Sprite, this.screenPos, Color.White);
-    }
+
 }
 
 public class TileDoor : Tile, IDraw, IInteractable
@@ -76,13 +77,25 @@ public class TileDoor : Tile, IDraw, IInteractable
         }
     }
 
-    public void Draw(SpriteBatch spriteBatch)
-    {
-        spriteBatch.Draw(Sprite, this.screenPos, Color.White);
-    }
-
     public void Interact(Entity e)
     {
-        e.Position = Vector2.Zero;
+        // put player in the left-top corne
+        e.Position = tileSize;
+    }
+}
+
+public class TileHeal : Tile, IDraw, IInteractable
+{
+    public TileHeal() : base(true)
+    {
+        this.Sprite = TextureManager.GetTexture("heal");
+    }
+    public void Interact(Entity e)
+    {
+        if (e is Player)
+        {
+            Player p = (Player)e;
+            p.Heal(1);
+        }
     }
 }
