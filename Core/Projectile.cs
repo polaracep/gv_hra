@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
 
@@ -8,7 +7,7 @@ namespace TBoGV;
 
 internal class Projectile : Entity, IDraw
 {
-	public const string SpriteName = "projectile";
+	public const string SpriteName = "koren";
 	public Texture2D Sprite { get; protected set; }
 	public bool ShotByPlayer;
 	public int Damage { get; set; }

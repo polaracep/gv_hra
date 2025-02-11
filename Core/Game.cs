@@ -25,6 +25,7 @@ public class TBoGVGame : Game
 
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
+
     }
 
     protected override void Initialize()
@@ -47,10 +48,10 @@ public class TBoGVGame : Game
         Enemy enemy;
         for (int i = 1; i < 19; i++)
         {
-            enemy = new RangedEnemy(new Vector2(50*i, 50));
+            enemy = new RangedEnemy(new Vector2(50 * i, 50));
             enemies.Add(enemy);
         }
-        
+
         player = new Player(new Vector2(50, 350));
 
         r = new RoomEmpty();
@@ -98,7 +99,7 @@ public class TBoGVGame : Game
                 {
                     // HOnim HOdne HOdin - SANTA REFERENCE
                     enemies[j].RecieveDmg(player.Projectiles[i].Damage);
-                    player.Projectiles.RemoveAt(i); 
+                    player.Projectiles.RemoveAt(i);
                     if (enemies[j].IsDead())
                     {
                         enemies.RemoveAt(j);

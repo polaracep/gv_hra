@@ -5,17 +5,17 @@ using Microsoft.Xna.Framework.Graphics;
 namespace TBoGV;
 internal class RangedEnemy : Enemy, IDraw
 {
-    static Texture2D Sprite;
-    static string SpriteName = "vitek-nobg";
+    protected Texture2D Sprite;
+    protected static string SpriteName = "korenovy_vezen";
     public RangedEnemy(Vector2 position)
     {
+        Sprite = TextureManager.GetTexture(SpriteName);
+        Size = new Vector2(Sprite.Width, Sprite.Height);
         Position = position;
-        Size = new Vector2(50, 50);
         Hp = 3;
         MovementSpeed = 4;
         AttackSpeed = 300;
         AttackDmg = 1;
-        Sprite = TextureManager.GetTexture(SpriteName);
     }
     public override void Update(Vector2 playerPosition)
     {
