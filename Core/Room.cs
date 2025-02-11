@@ -13,5 +13,5 @@ public abstract class Room
     }
 
     protected abstract void GenerateRoom();
-
+	public abstract Tile GetTile(Vector2 coords);
 }

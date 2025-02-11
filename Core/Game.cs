@@ -23,7 +23,7 @@ public class TBoGVGame : Game
 
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
-        player = new Player(new Vector2(0, 0));
+        player = new Player(new Vector2(50, 50));
 
         enemy = new RangedEnemy(new Vector2(0, 100));
         projectiles = new List<Projectile>();
@@ -56,7 +56,7 @@ public class TBoGVGame : Game
             Exit();
         mouseState = Mouse.GetState();
         keyboardState = Keyboard.GetState();
-        player.Update(keyboardState, mouseState, _camera.Transform);
+        player.Update(keyboardState, mouseState, _camera.Transform, r);
         foreach (Projectile projectile in player.Projectiles)
             projectile.Update();
         foreach (Projectile projectile in projectiles)
