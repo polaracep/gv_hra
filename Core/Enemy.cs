@@ -9,8 +9,9 @@ abstract internal class Enemy : Entity, IRecieveDmg, IDealDmg
     public int AttackSpeed { get; set; }
     public int AttackDmg { get; set; }
 	public int Hp { get; set; }
+    public int MaxHp { get; set; }
 
-	public abstract void SetPosition(Vector2 postition);
+    public abstract void SetPosition(Vector2 postition);
     public abstract void Draw(SpriteBatch spriteBatch);
     public abstract void RecieveDmg();
     public abstract bool ReadyToAttack();

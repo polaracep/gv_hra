@@ -10,7 +10,6 @@ namespace TBoGV;
 internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 {
 	static Texture2D Sprite;
-	static string SpriteName = "vitek-nobg";
 	int Level { get; set; }
 	int Xp { get; set; }
 	public int AttackSpeed { get; set; }
@@ -19,12 +18,13 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 
 	public List<Projectile> Projectiles { get; set; }
 	public int Hp { get; set; }
+    public int MaxHp {  get; set; }
 
-	public Player(Vector2 position)
+    public Player(Vector2 position)
 	{
 		Position = position;
 		Size = new Vector2(50, 50);
-		Hp = 3;
+		Hp = MaxHp = 9;
 		MovementSpeed = 4;
 		Projectiles = new List<Projectile>();
 		AttackSpeed = 2;
@@ -85,7 +85,7 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 
 		Vector2 direction = worldMousePos - Position - Size / 2;
 
-		if (direction != Vector2.Zero)
+		if (!float.IsNaN(direction.X) && !float.IsNaN(direction.Y))
 		{
 			direction.Normalize(); // Normalize to get unit direction vector
 			Direction = direction;

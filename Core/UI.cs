@@ -1,27 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Content;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TBoGV.Core
 {
     internal class UI : IDraw
     {
-        public UI() { }
-        public void Update(Camera camera)
-        {
-
+        List<Hearth> hearths;
+        public UI() 
+        { 
+            hearths = new List<Hearth>();
         }
+        public void Update(Player player)
+        {
+            if (player.MaxHp != hearths.Count)
+            {
+                hearths.Clear();
+                for (int i = 0; i < player.MaxHp; i++)
+                    hearths.Add(new Hearth());
+            }
+
+            // Top-left corner of the screen with a small padding
+            Vector2 screenOffset = new Vector2(20, 20);
+
+            for (int i = 0; i < hearths.Count; i++)
+            {
+                hearths[i].Broken = i >= player.Hp;
+
+                // Screen-space positioning (ignoring camera transform)
+                hearths[i].Position = screenOffset + new Vector2((hearths[i].Size.X +10)* i, 0);
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            
-        }
-        public static void Load(ContentManager content)
-        {
-
+            for (int i = 0; i < hearths.Count; i++)
+                hearths[i].Draw(spriteBatch);
         }
     }
 }

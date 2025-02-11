@@ -16,6 +16,7 @@ public class TBoGVGame : Game
     RoomEmpty r;
     List<Projectile> projectiles;
     Enemy enemy;
+    UI UI;
     MouseState mouseState;
     KeyboardState keyboardState;
     public TBoGVGame()
@@ -52,10 +53,11 @@ public class TBoGVGame : Game
         enemy = new RangedEnemy(new Vector2(100, 100));
         projectiles = new List<Projectile>();
 
-        player = new Player(new Vector2(50, 50));
-        enemy = new RangedEnemy(new Vector2(0, 100));
+        player = new Player(new Vector2(50, 350));
+        enemy = new RangedEnemy(new Vector2(50, 50));
         projectiles = new List<Projectile>();
         r = new RoomEmpty();
+        UI = new UI();
         _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
 
         base.BeginRun();
@@ -104,7 +106,7 @@ public class TBoGVGame : Game
         enemy.Update(player.Position + player.Size / 2);
         if (enemy.ReadyToAttack())
             projectiles.Add(enemy.Attack());
-
+        UI.Update(player);
         _camera.Update(player.Position + player.Size / 2);
         base.Update(gameTime);
     }
@@ -122,8 +124,10 @@ public class TBoGVGame : Game
             projectile.Draw(_spriteBatch);
         foreach (Projectile projectile in projectiles)
             projectile.Draw(_spriteBatch);
-        //enemy.Draw(_spriteBatch);
+        _spriteBatch.End();
 
+        _spriteBatch.Begin();
+        UI.Draw(_spriteBatch);
         _spriteBatch.End();
 
         // TODO: Add your drawing code here

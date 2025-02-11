@@ -14,7 +14,7 @@ internal class RangedEnemy : Enemy, IDraw
         Size = new Vector2(50, 50);
         Hp = 3;
         MovementSpeed = 4;
-        AttackSpeed = 20;
+        AttackSpeed = 200;
         AttackDmg = 1;
         Sprite = TextureManager.GetTexture(SpriteName);
     }

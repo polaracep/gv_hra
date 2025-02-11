@@ -9,13 +9,21 @@ public static class TextureManager
 
     public static void Load(ContentManager content)
     {
-        textures.Add("tile", content.Load<Texture2D>("tile"));
-        textures.Add("wall", content.Load<Texture2D>("wall"));
-        textures.Add("door", content.Load<Texture2D>("door"));
+        List<string> names = new List<string>
+{
+    "tile",
+    "wall",
+    "door",
+    "vitek-nobg",
+    "projectile",
+    "taunt",
+    "admiration"
+};
 
-        textures.Add("vitek-nobg", content.Load<Texture2D>("vitek-nobg"));
-
-        textures.Add("projectile", content.Load<Texture2D>("projectile"));
+        foreach (string name in names)
+        {
+            textures.Add(name, content.Load<Texture2D>(name));
+        }
     }
     public static Texture2D GetTexture(string name)
     {

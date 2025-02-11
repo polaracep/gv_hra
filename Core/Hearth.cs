@@ -7,13 +7,20 @@ namespace TBoGV.Core
     internal class Hearth : IDraw
     {
         public bool Broken;
-        static Texture2D Sprite;
-        static string SpriteName = "vitek-nobg";
+        static Texture2D SpriteFull;
+        static Texture2D SpriteBroken;
         public Vector2 Position;
         public Vector2 Size;
+        public Hearth() 
+        {
+            SpriteFull = TextureManager.GetTexture("admiration");
+            SpriteBroken = TextureManager.GetTexture("taunt");
+            Broken = false;
+            Size = new Vector2(25,40);
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White);
+            spriteBatch.Draw(!Broken ? SpriteFull : SpriteBroken, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), Color.White); 
         }
     }
 }
