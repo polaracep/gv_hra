@@ -10,13 +10,14 @@ internal class RangedEnemy : Enemy, IDraw
 
     public RangedEnemy(Vector2 position)
     {
-        Size = new Vector2(Sprite.Width, Sprite.Height);
+
         Position = position;
         Hp = 3;
         MovementSpeed = 4;
         AttackSpeed = 300;
         AttackDmg = 1;
-        Sprite = TextureManager.GetTexture("korenovy_vezen");
+        Sprite = TextureManager.GetTexture("korenovy_vezen");        
+        Size = new Vector2(Sprite.Width, Sprite.Height);
         XpValue = 1;
     }
     public override void Update(Vector2 playerPosition)
