@@ -24,13 +24,17 @@ public class TBoGVGame : Game
 
         Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
+        player = new Player(new Vector2(50, 50));
+
+        enemy = new RangedEnemy(new Vector2(0, 100));
+        projectiles = new List<Projectile>();
 
     }
 
     protected override void Initialize()
     {
         base.Initialize();
-        _camera = new Camera(GraphicsDevice.Viewport);
+        _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
     }
 
     protected override void LoadContent()
@@ -43,6 +47,11 @@ public class TBoGVGame : Game
     // Run after LoadContent
     protected override void BeginRun()
     {
+        player = new Player(new Vector2(50, 50));
+
+        enemy = new RangedEnemy(new Vector2(100, 100));
+        projectiles = new List<Projectile>();
+
         player = new Player(new Vector2(50, 50));
         enemy = new RangedEnemy(new Vector2(0, 100));
         projectiles = new List<Projectile>();
@@ -58,8 +67,7 @@ public class TBoGVGame : Game
         mouseState = Mouse.GetState();
         keyboardState = Keyboard.GetState();
         player.Update(keyboardState, mouseState, _camera.Transform, r);
-        foreach (Projectile projectile in player.Projectiles)
-            projectile.Update();
+
         for (int i = projectiles.Count - 1; i >= 0; i--)
         {
             projectiles[i].Update();
@@ -67,7 +75,28 @@ public class TBoGVGame : Game
             if (ObjectCollision.CircleCircleCollision(projectiles[i], player))
             {
                 player.RecieveDmg(projectiles[i].Damage);
-                projectiles.RemoveAt(i); // ✅ Safe removal
+                projectiles.RemoveAt(i);
+                continue;
+            }
+            if (r.GetTile(projectiles[i].GetCircleCenter()).DoCollision == true)
+            {
+                projectiles.RemoveAt(i);
+            }
+        }
+        for (int i = player.Projectiles.Count - 1; i >= 0; i--)
+        {
+            player.Projectiles[i].Update();
+
+            if (ObjectCollision.CircleCircleCollision(player.Projectiles[i], enemy))
+            {
+                // HOnim HOdne HOdin - SANTA REFERENCE
+                player.RecieveDmg(player.Projectiles[i].Damage);
+                player.Projectiles.RemoveAt(i);
+                continue;
+            }
+            if (r.GetTile(player.Projectiles[i].GetCircleCenter()).DoCollision == true)
+            {
+                player.Projectiles.RemoveAt(i);
             }
         }
         enemy.Update(player.Position + player.Size / 2);
