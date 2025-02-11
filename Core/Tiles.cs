@@ -36,7 +36,6 @@ public class TileFloor : Tile, IDraw
         switch (floor)
         {
             case FloorTypes.BASIC:
-                Console.WriteLine(TextureManager.GetTexture("tile"));
                 Sprite = TextureManager.GetTexture("tile");
                 break;
             default:

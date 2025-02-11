@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,7 +21,7 @@ public static class TextureManager
             "blackSquare",
             "koren",
             "korenovy_vezen",
-
+            "gymvod",
         };
 
         foreach (string name in names)
