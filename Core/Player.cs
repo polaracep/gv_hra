@@ -15,13 +15,13 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 	public int AttackSpeed { get; set; }
 	public int AttackDmg { get; set; }
 	public DateTime LastAttackTime { get; set; }
-    public DateTime LastRecievedDmgTime { get; set; }
+	public DateTime LastRecievedDmgTime { get; set; }
 	public int InvulnerabilityFrame = 1000;
-    public List<Projectile> Projectiles { get; set; }
+	public List<Projectile> Projectiles { get; set; }
 	public int Hp { get; set; }
-    public int MaxHp {  get; set; }
+	public int MaxHp { get; set; }
 
-    public Player(Vector2 position)
+	public Player(Vector2 position)
 	{
 		Position = position;
 		Size = new Vector2(50, 50);
@@ -55,12 +55,12 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		{
 			dy += MovementSpeed;
 		}
-		if (keyboardState.IsKeyDown(Keys.E))
+		if (mouseState.RightButton == ButtonState.Pressed)
 		{
-			Tile t = room.GetTile(InteractionPoint);
-			if (t is IInteractable)
+			if (room.GetTile(InteractionPoint) is IInteractable)
 			{
-
+				IInteractable tile = (IInteractable)room.GetTile(InteractionPoint);
+				tile.Interact(this);
 			}
 		}
 
@@ -98,7 +98,9 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 
 	public void Draw(SpriteBatch spriteBatch)
 	{
-		spriteBatch.Draw(Sprite, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), (DateTime.UtcNow - LastRecievedDmgTime).TotalMilliseconds >= InvulnerabilityFrame ? Color.White : Color.Yellow);
+		spriteBatch.Draw(Sprite,
+			new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)),
+			(DateTime.UtcNow - LastRecievedDmgTime).TotalMilliseconds >= InvulnerabilityFrame ? Color.White : Color.DarkRed);
 		spriteBatch.Draw(TextureManager.GetTexture("projectile"), InteractionPoint, Color.White);
 	}
 	public bool ReadyToAttack()
@@ -118,8 +120,18 @@ internal class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		if ((DateTime.UtcNow - LastRecievedDmgTime).TotalMilliseconds >= InvulnerabilityFrame)
 		{
 			Hp -= damage;
-            LastRecievedDmgTime = DateTime.UtcNow;
-        }
+
+			LastRecievedDmgTime = DateTime.UtcNow;
+		}
+
+	}
+
+	public void Heal(uint healAmount)
+	{
+		if (Hp < MaxHp)
+		{
+			Hp += (int)healAmount;
+		}
 	}
 }
 

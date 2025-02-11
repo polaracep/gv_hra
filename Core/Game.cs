@@ -54,6 +54,7 @@ public class TBoGVGame : Game
         player = new Player(new Vector2(50, 350));
 
         r = new RoomEmpty();
+        r.AddTile(new TileHeal(), new Vector2(5, 5));
         UI = new UI();
         _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
 
@@ -101,8 +102,9 @@ public class TBoGVGame : Game
                     if (enemies[j].IsDead())
                     {
                         enemies.RemoveAt(j);
-                        // TODO player.Kill() dostani xp, dropy atd
+                        // TODO player.Kill() dostani xp, dropy atd`    
                     }
+                    break;
                 }
 
         }

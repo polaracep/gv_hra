@@ -10,15 +10,16 @@ public static class TextureManager
     public static void Load(ContentManager content)
     {
         List<string> names = new List<string>
-{
-    "tile",
-    "wall",
-    "door",
-    "vitek-nobg",
-    "projectile",
-    "taunt",
-    "admiration"
-};
+        {
+            "tile",
+            "wall",
+            "door",
+            "vitek-nobg",
+            "projectile",
+            "taunt",
+            "admiration",
+            "heal",
+        };
 
         foreach (string name in names)
         {
