@@ -32,7 +32,6 @@ public class TBoGVGame : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         TextureManager.Load(Content);
         SongManager.Load(Content);
-
     }
 
     // Run after LoadContent

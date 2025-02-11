@@ -43,7 +43,7 @@ internal class ScreenGame : Screen
 
         // Play the selected song reference.
         MediaPlayer.Play(Song);
-        MediaPlayer.Volume = 0.3f;
+        MediaPlayer.Volume = 0.1f;
     }
 
     public override void Draw(SpriteBatch _spriteBatch)
@@ -77,7 +77,7 @@ internal class ScreenGame : Screen
         keyboardState = Keyboard.GetState();
         if (KeyReleased(Keys.Escape))
             inGameMenu.Active = !inGameMenu.Active;
-        if (!inGameMenu.Active || (Frame % 15 == 0))
+        if (!inGameMenu.Active)
         {
             player.Update(keyboardState, mouseState, _camera.Transform, r);
             r.Update();
