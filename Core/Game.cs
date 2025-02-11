@@ -9,8 +9,8 @@ public class TBoGVGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-	private Camera _camera;
-	RoomEmpty r = new RoomEmpty();
+    private Camera _camera;
+    RoomEmpty r = new RoomEmpty();
     Player player;
     List<Projectile> projectiles;
     Enemy enemy;
@@ -19,9 +19,9 @@ public class TBoGVGame : Game
     public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
-		
 
-		Content.RootDirectory = "Content/Textures";
+
+        Content.RootDirectory = "Content/Textures";
         IsMouseVisible = true;
         player = new Player(new Vector2(0, 0));
 
@@ -33,8 +33,8 @@ public class TBoGVGame : Game
     protected override void Initialize()
     {
         base.Initialize();
-		_camera = new Camera(GraphicsDevice.Viewport);
-	}
+        _camera = new Camera(GraphicsDevice.Viewport);
+    }
 
     protected override void LoadContent()
     {
@@ -45,6 +45,7 @@ public class TBoGVGame : Game
         Projectile.Load(Content);
         TileWall.Load(Content);
         TileFloor.Load(Content);
+        TileDoor.Load(Content);
 
     }
 
@@ -55,7 +56,7 @@ public class TBoGVGame : Game
             Exit();
         mouseState = Mouse.GetState();
         keyboardState = Keyboard.GetState();
-        player.Update(keyboardState, mouseState,_camera.Transform);
+        player.Update(keyboardState, mouseState, _camera.Transform);
         foreach (Projectile projectile in player.Projectiles)
             projectile.Update();
         foreach (Projectile projectile in projectiles)
@@ -63,10 +64,10 @@ public class TBoGVGame : Game
         enemy.Update(player.Position + player.Size / 2);
         if (enemy.ReadyToAttack())
             projectiles.Add(enemy.Attack());
-        
-		_camera.Update(player.Position + player.Size / 2);
-		base.Update(gameTime);
-	}
+
+        _camera.Update(player.Position + player.Size / 2);
+        base.Update(gameTime);
+    }
 
     protected override void Draw(GameTime gameTime)
     {

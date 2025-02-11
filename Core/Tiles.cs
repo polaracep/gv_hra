@@ -8,6 +8,7 @@ namespace TBoGV;
 public abstract class Tile
 {
     protected Vector2 screenPos;
+    protected int spriteId;
     public bool DoCollision { get; protected set; } = false;
 
     // Vsechny tiles50x50.
@@ -33,7 +34,6 @@ public abstract class Tile
 public abstract class Tile<T> : Tile where T : Tile<T>
 {
     protected static List<Texture2D> sprites = new List<Texture2D>();
-    protected int spriteId;
 
     protected Tile(bool collide) : base(collide) { }
 
@@ -82,9 +82,20 @@ public class TileWall : Tile<TileWall>, ITexture
     }
 }
 
-public class TileDoor : Tile<TileDoor>
+public class TileDoor : Tile<TileDoor>, ITexture
 {
-    public TileDoor() : base(true)
+    public TileDoor(DoorTypes door) : base(true)
     {
+        this.spriteId = (int)door;
+    }
+
+    public static void Load(ContentManager content)
+    {
+        TileDoor.sprites.Add(content.Load<Texture2D>("door"));
+    }
+
+    public void Draw(SpriteBatch spriteBatch)
+    {
+        spriteBatch.Draw(this.getTexture(), this.screenPos, Color.White);
     }
 }
