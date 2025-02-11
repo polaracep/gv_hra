@@ -17,9 +17,11 @@ internal class ScreenGame : Screen
     private UI UI;
     private MouseState mouseState;
     private KeyboardState keyboardState;
+    private int Frame;
     public ScreenGame(GraphicsDeviceManager graphics)
     {
         Graphics = graphics;
+        Frame = 0;
     }
 
     public override void BeginRun()
@@ -55,20 +57,21 @@ internal class ScreenGame : Screen
         throw new NotImplementedException();
     }
 
-    public override void Update()
+    public override void Update(GameTime gameTime)
     {
         previousKeyboardState = keyboardState;
         mouseState = Mouse.GetState();
         keyboardState = Keyboard.GetState();
         if (KeyReleased(Keys.Escape))
             inGameMenu.Active = !inGameMenu.Active;
-        if (!inGameMenu.Active)
+        if (!inGameMenu.Active || (Frame%15 == 0))
         {
             player.Update(keyboardState, mouseState, _camera.Transform, r);
             r.Update();
             UI.Update(player);
             _camera.Update(player.Position + player.Size / 2);
         }
+        Frame++;
     }
     KeyboardState previousKeyboardState;
 

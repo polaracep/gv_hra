@@ -45,7 +45,7 @@ public class TBoGVGame : Game
         // exit coded
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             Exit();
-        screenCurrent.Update();
+        screenCurrent.Update(gameTime);
         base.Update(gameTime);
     }
 
