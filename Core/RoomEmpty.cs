@@ -5,7 +5,7 @@ namespace TBoGV;
 
 public class RoomEmpty : Room
 {
-    public RoomEmpty() : base(new Vector2(14, 9)) { }
+    public RoomEmpty() : base(new Vector2(20, 15)) { }
 
     public void Draw(SpriteBatch spriteBatch)
     {

@@ -34,7 +34,7 @@ public class TBoGVGame : Game
     protected override void Initialize()
     {
         base.Initialize();
-        _camera = new Camera(GraphicsDevice.Viewport);
+        _camera = new Camera(GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
     }
 
     protected override void LoadContent()
