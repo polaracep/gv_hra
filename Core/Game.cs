@@ -29,15 +29,17 @@ public class TBoGVGame : Game
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _spriteBatch = new SpriteBatch(GraphicsDevice)
+        TextureManager.Load(Content);
         screenGame.Load(Content);
+
     }
 
     // Run after LoadContent
     protected override void BeginRun()
     {
 
-        screenCurrent.BeginRun(GraphicsDevice);
+        screenCurrent.BeginRun();
         base.BeginRun();
     }
 
@@ -53,24 +55,7 @@ public class TBoGVGame : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        _spriteBatch.Begin(blendState: BlendState.Opaque);
-        // _spriteBatch.Draw(TextureManager.GetTexture("gymvod"), Vector2.Zero, Color.White);
-        _spriteBatch.Draw(TextureManager.GetTexture("gymvod"),
-            new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
-        _spriteBatch.End();
-
-        _spriteBatch.Begin(transformMatrix: _camera.Transform);
-        r.Draw(_spriteBatch);
-        player.Draw(_spriteBatch);
-        _spriteBatch.End();
-
-        _spriteBatch.Begin();
-        UI.Draw(_spriteBatch);
-        _spriteBatch.End();
-
-
-        // TODO: Add your drawing code here
-
+        screenCurrent.Draw(_spriteBatch);
         base.Draw(gameTime);
     }
 }

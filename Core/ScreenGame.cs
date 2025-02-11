@@ -22,17 +22,23 @@ internal class ScreenGame : Screen
         Graphics = graphics;
     }
 
-    public override void BeginRun(GraphicsDevice graphicsDevice)
+    public override void BeginRun()
     {
         player = new Player();
         r = new RoomEmpty(player);
         UI = new UI();
-        _camera = new Camera(graphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
-        inGameMenu = new InGameMenu(graphicsDevice.Viewport);
+        _camera = new Camera(Graphics.GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
+        inGameMenu = new InGameMenu(Graphics.GraphicsDevice.Viewport);
     }
 
     public override void Draw(SpriteBatch _spriteBatch)
     {
+        _spriteBatch.Begin(blendState: BlendState.Opaque);
+        // _spriteBatch.Draw(TextureManager.GetTexture("gymvod"), Vector2.Zero, Color.White);
+        _spriteBatch.Draw(TextureManager.GetTexture("gymvod"),
+            new Rectangle(0, 0, Graphics.GraphicsDevice.Viewport.Width, Graphics.GraphicsDevice.Viewport.Height), Color.White);
+        _spriteBatch.End();
+
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
         r.Draw(_spriteBatch);
         player.Draw(_spriteBatch);
@@ -40,14 +46,10 @@ internal class ScreenGame : Screen
 
         _spriteBatch.Begin();
         UI.Draw(_spriteBatch);
-        inGameMenu.Draw(_spriteBatch);
         _spriteBatch.End();
     }
 
-    public override void Load(ContentManager content)
-    {
-        TextureManager.Load(content);
-    }
+    public override void Load(ContentManager content) { }
 
     public override void LoadContent()
     {
