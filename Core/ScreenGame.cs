@@ -46,11 +46,10 @@ internal class ScreenGame : Screen
 
         _spriteBatch.Begin();
         UI.Draw(_spriteBatch);
+        if (inGameMenu.Active)
+            inGameMenu.Draw(_spriteBatch);
         _spriteBatch.End();
     }
-
-    public override void Load(ContentManager content) { }
-
     public override void LoadContent()
     {
         throw new NotImplementedException();
@@ -58,11 +57,23 @@ internal class ScreenGame : Screen
 
     public override void Update()
     {
+        previousKeyboardState = keyboardState;
         mouseState = Mouse.GetState();
         keyboardState = Keyboard.GetState();
-        player.Update(keyboardState, mouseState, _camera.Transform, r);
-        r.Update();
-        UI.Update(player);
-        _camera.Update(player.Position + player.Size / 2);
+        if (KeyReleased(Keys.Escape))
+            inGameMenu.Active = !inGameMenu.Active;
+        if (!inGameMenu.Active)
+        {
+            player.Update(keyboardState, mouseState, _camera.Transform, r);
+            r.Update();
+            UI.Update(player);
+            _camera.Update(player.Position + player.Size / 2);
+        }
+    }
+    KeyboardState previousKeyboardState;
+
+    public bool KeyReleased(Keys key)
+    {
+        return previousKeyboardState.IsKeyDown(key) && keyboardState.IsKeyUp(key);
     }
 }

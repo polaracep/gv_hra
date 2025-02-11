@@ -6,10 +6,12 @@ internal class InGameMenu : IDraw
 {
     static Texture2D SpriteBackground;
     static Viewport Viewport;
+    public bool Active;
     public InGameMenu(Viewport viewport)
     {
         Viewport = viewport;
         SpriteBackground = TextureManager.GetTexture("blackSquare");
+        Active = false;
     }
     public void Draw(SpriteBatch spriteBatch)
     {

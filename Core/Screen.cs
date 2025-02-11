@@ -7,7 +7,6 @@ abstract class Screen
 {
     public abstract void LoadContent();
     public abstract void Draw(SpriteBatch _spriteBatch);
-    public abstract void Load(ContentManager content);
     public abstract void BeginRun();
     public abstract void Update();
 

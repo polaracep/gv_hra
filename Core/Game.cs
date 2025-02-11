@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TBoGV.Core;
 
 namespace TBoGV;
 
@@ -31,8 +30,6 @@ public class TBoGVGame : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         TextureManager.Load(Content);
-        screenGame.Load(Content);
-
     }
 
     // Run after LoadContent
@@ -46,7 +43,7 @@ public class TBoGVGame : Game
     protected override void Update(GameTime gameTime)
     {
         // exit coded
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             Exit();
         screenCurrent.Update();
         base.Update(gameTime);
