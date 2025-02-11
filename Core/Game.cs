@@ -29,7 +29,7 @@ public class TBoGVGame : Game
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice)
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
         TextureManager.Load(Content);
         screenGame.Load(Content);
 
