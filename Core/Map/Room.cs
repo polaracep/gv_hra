@@ -5,9 +5,24 @@ using Microsoft.Xna.Framework.Graphics;
 using TBoGV.Core;
 
 namespace TBoGV;
+
+public enum Directions
+{
+    LEFT = 0,
+    RIGHT = 1,
+    UP = 2,
+    DOWN = 3,
+    ENTRY = 4,
+}
+
 public abstract class Room : IDraw
 {
     public Vector2 Dimensions { get; protected set; }
+    /// <summary>
+    /// Position used in level generation
+    /// </summary>
+    public Vector2 Position { get; protected set; }
+    public List<Directions> DoorDirectons = new List<Directions>();
     /// <summary>
     /// Use for room layout
     /// </summary>
@@ -16,18 +31,25 @@ public abstract class Room : IDraw
     /// Use for interactable and changing tiles
     /// </summary>
     protected Tile[,] roomDecorations;
+
+    protected List<Room> adjacentRooms = new List<Room>();
     protected List<Projectile> projectiles;
     protected List<Enemy> enemies;
     protected Player player;
 
-    public Room(Vector2 dimensions, Player p)
+    public Room(Vector2 dimensions, Vector2 pos, Directions? entryDir, Player p)
     {
         this.projectiles = new List<Projectile>();
         this.enemies = new List<Enemy>();
         this.player = p;
         this.Dimensions = dimensions;
-        this.GenerateRoom();
+        this.Position = pos;
+        if (entryDir != null)
+            this.DoorDirectons.Add((Directions)entryDir);
+        else
+            this.DoorDirectons.Add(Directions.ENTRY);
     }
+    public Room(Vector2 dimensions, Vector2 pos, Player p) : this(dimensions, pos, null, p) { }
 
     /// <summary>
     /// Returns the left-top world position for any tile position
@@ -147,7 +169,8 @@ public abstract class Room : IDraw
     }
 
     /* === Generation methods === */
-    protected abstract void GenerateRoom();
+    public abstract void GenerateRoom();
+    protected abstract void GenerateEnemies();
     protected virtual void GenerateRoomBase()
     {
         this.ClearRoom();
