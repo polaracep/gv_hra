@@ -24,6 +24,7 @@ public static class TextureManager
             "korenovy_vezen",
             "gymvod",
             "platina",
+			"coin"
         };
 
         foreach (string name in names)
@@ -59,3 +60,24 @@ public static class SongManager
     }
 }
 
+public static class FontManager
+{
+	private static Dictionary<string, SpriteFont> fonts = new Dictionary<string, SpriteFont>();
+
+	public static void Load(ContentManager content)
+	{
+		List<string> names = new List<string>
+		{
+			"font"
+		};
+
+		foreach (string name in names)
+		{
+			fonts.Add(name, content.Load<SpriteFont>("Fonts/" + name));
+		}
+	}
+	public static SpriteFont GetFont(string name)
+	{
+		return fonts.GetValueOrDefault(name);
+	}
+}

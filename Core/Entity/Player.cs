@@ -19,7 +19,7 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 	public List<Projectile> Projectiles { get; set; }
 	public int Hp { get; set; }
 	public int MaxHp { get; set; }
-
+	public int Coins { get; set; }
 	public Player(Vector2 position)
 	{
 		Position = position;
@@ -30,6 +30,7 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		AttackSpeed = 200;
 		AttackDmg = 1;
 		Sprite = TextureManager.GetTexture("vitek-nobg");
+		Coins = 1;
 	}
 
 	public Player() : this(Vector2.One) { }
