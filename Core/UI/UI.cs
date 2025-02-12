@@ -6,10 +6,10 @@ namespace TBoGV.Core
 {
     internal class UI : IDraw
     {
-        List<Hearth> hearths;
-        public UI() 
-        { 
-            hearths = new List<Hearth>();
+        List<Heart> hearths;
+        public UI()
+        {
+            hearths = new List<Heart>();
         }
         public void Update(Player player)
         {
@@ -17,7 +17,7 @@ namespace TBoGV.Core
             {
                 hearths.Clear();
                 for (int i = 0; i < player.MaxHp; i++)
-                    hearths.Add(new Hearth());
+                    hearths.Add(new Heart());
             }
 
             // Top-left corner of the screen with a small padding
@@ -28,7 +28,7 @@ namespace TBoGV.Core
                 hearths[i].Broken = i >= player.Hp;
 
                 // Screen-space positioning (ignoring camera transform)
-                hearths[i].Position = screenOffset + new Vector2((hearths[i].Size.X +10)* i, 0);
+                hearths[i].Position = screenOffset + new Vector2((hearths[i].Size.X + 10) * i, 0);
             }
         }
 
