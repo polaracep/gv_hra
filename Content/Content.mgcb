@@ -13,6 +13,26 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Fonts/AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
+/importer:
+/processor:
+/build:Fonts/AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
+
+#begin Fonts/AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
+/importer:
+/processor:
+/build:Fonts/AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
+
+#begin Fonts/AtkinsonHyperlegibleNext-VariableFont_wght.ttf
+/importer:
+/processor:
+/build:Fonts/AtkinsonHyperlegibleNext-VariableFont_wght.ttf
+
+#begin Fonts/AtkinsonHyperlegibleNext-VariableFont_wght.ttf
+/importer:
+/processor:
+/build:Fonts/AtkinsonHyperlegibleNext-VariableFont_wght.ttf
+
 #begin Sounds/soundtrack.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -31,18 +51,6 @@
 /processorParam:TextureFormat=Color
 /build:Textures/admiration.png
 
-#begin Textures/admiration.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/admiration.png
-
 #begin Textures/blackSquare.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -54,30 +62,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/blackSquare.png
-
-#begin Textures/blackSquare.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/blackSquare.png
-
-#begin Textures/door.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/door.png
 
 #begin Textures/door.png
 /importer:TextureImporter
@@ -103,30 +87,6 @@
 /processorParam:TextureFormat=Color
 /build:Textures/gymvod.png
 
-#begin Textures/gymvod.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/gymvod.png
-
-#begin Textures/heal.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/heal.png
-
 #begin Textures/heal.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -150,30 +110,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/koren.png
-
-#begin Textures/koren.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/koren.png
-
-#begin Textures/korenovy_vezen.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/korenovy_vezen.png
 
 #begin Textures/korenovy_vezen.png
 /importer:TextureImporter
@@ -211,18 +147,6 @@
 /processorParam:TextureFormat=Color
 /build:Textures/projectile.png
 
-#begin Textures/projectile.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/projectile.png
-
 #begin Textures/taunt.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -234,30 +158,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/taunt.png
-
-#begin Textures/taunt.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/taunt.png
-
-#begin Textures/tile.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/tile.png
 
 #begin Textures/tile.png
 /importer:TextureImporter
@@ -283,18 +183,6 @@
 /processorParam:TextureFormat=Color
 /build:Textures/vitek-nobg.png
 
-#begin Textures/vitek-nobg.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Textures/vitek-nobg.png
-
 #begin Textures/wall.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -307,7 +195,7 @@
 /processorParam:TextureFormat=Color
 /build:Textures/wall.png
 
-#begin Textures/wall.png
+#begin Textures/wheat4.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -317,5 +205,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures/wall.png
+/build:Textures/wheat4.png
 
