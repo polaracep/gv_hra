@@ -14,8 +14,8 @@ public class TBoGVGame : Game
     public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
-
-        screenCurrent = screenGame = new ScreenGame(_graphics);
+        _graphics.ToggleFullScreen();
+        screenCurrent = screenGame = new ScreenGame();
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -38,7 +38,7 @@ public class TBoGVGame : Game
     protected override void BeginRun()
     {
 
-        screenCurrent.BeginRun();
+        screenCurrent.BeginRun(_graphics);
         base.BeginRun();
     }
 
@@ -54,7 +54,7 @@ public class TBoGVGame : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        screenCurrent.Draw(_spriteBatch);
+        screenCurrent.Draw(_spriteBatch, _graphics);
         base.Draw(gameTime);
     }
 }

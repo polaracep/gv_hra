@@ -7,8 +7,8 @@ namespace TBoGV;
 abstract class Screen
 {
     public abstract void LoadContent();
-    public abstract void Draw(SpriteBatch _spriteBatch);
-    public abstract void BeginRun();
+    public abstract void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager graphics);
+    public abstract void BeginRun(GraphicsDeviceManager graphics);
     public abstract void Update(GameTime gameTime);
 
 }

@@ -9,7 +9,6 @@ namespace TBoGV;
 
 internal class ScreenGame : Screen
 {
-    private GraphicsDeviceManager Graphics;
     private Player player;
     private RoomEmpty r;
     private Camera _camera;
@@ -20,19 +19,18 @@ internal class ScreenGame : Screen
     private int Frame;
     private Song Song;
 
-    public ScreenGame(GraphicsDeviceManager graphics)
+    public ScreenGame()
     {
-        Graphics = graphics;
         Frame = 0;
     }
 
-    public override void BeginRun()
+    public override void BeginRun(GraphicsDeviceManager graphics)
     {
         player = new Player();
         r = new RoomEmpty(player);
         UI = new UI();
-        _camera = new Camera(Graphics.GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
-        inGameMenu = new InGameMenu(Graphics.GraphicsDevice.Viewport);
+        _camera = new Camera(graphics.GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
+        inGameMenu = new InGameMenu(graphics.GraphicsDevice.Viewport);
 
         // check the current state of the MediaPlayer.
         Song = SongManager.GetSong("soundtrack");
@@ -46,12 +44,12 @@ internal class ScreenGame : Screen
         MediaPlayer.Volume = 0.1f;
     }
 
-    public override void Draw(SpriteBatch _spriteBatch)
+    public override void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager graphics)
     {
         _spriteBatch.Begin(blendState: BlendState.Opaque);
         // _spriteBatch.Draw(TextureManager.GetTexture("gymvod"), Vector2.Zero, Color.White);
         _spriteBatch.Draw(TextureManager.GetTexture("gymvod"),
-            new Rectangle(0, 0, Graphics.GraphicsDevice.Viewport.Width, Graphics.GraphicsDevice.Viewport.Height), Color.White);
+            new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
         _spriteBatch.End();
 
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
@@ -62,7 +60,11 @@ internal class ScreenGame : Screen
         _spriteBatch.Begin();
         UI.Draw(_spriteBatch);
         if (inGameMenu.Active)
+        {
+            inGameMenu.Update(graphics.GraphicsDevice.Viewport);
             inGameMenu.Draw(_spriteBatch);
+        }
+
         _spriteBatch.End();
     }
     public override void LoadContent()
@@ -84,7 +86,6 @@ internal class ScreenGame : Screen
             UI.Update(player);
             _camera.Update(player.Position + player.Size / 2);
         }
-        Frame++;
     }
     KeyboardState previousKeyboardState;
 

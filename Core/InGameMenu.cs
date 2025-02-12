@@ -13,6 +13,10 @@ internal class InGameMenu : IDraw
         SpriteBackground = TextureManager.GetTexture("blackSquare");
         Active = false;
     }
+    public void Update(Viewport viewport)
+    {
+        Viewport = viewport;
+    }
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(SpriteBackground, new Rectangle(0, 0, Viewport.Width, Viewport.Height), new Color(0, 0, 0, (int)(255 * 0.25)));
