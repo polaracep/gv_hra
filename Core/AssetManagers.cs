@@ -23,6 +23,7 @@ public static class TextureManager
             "koren",
             "korenovy_vezen",
             "gymvod",
+            "platina",
         };
 
         foreach (string name in names)
