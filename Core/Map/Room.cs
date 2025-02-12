@@ -8,7 +8,14 @@ namespace TBoGV;
 public abstract class Room : IDraw
 {
     public Vector2 Dimensions { get; protected set; }
-    protected Tile[,] RoomMap;
+    /// <summary>
+    /// Use for room layout
+    /// </summary>
+    protected Tile[,] roomFloor;
+    /// <summary>
+    /// Use for interactable and changing tiles
+    /// </summary>
+    protected Tile[,] roomDecorations;
     protected List<Projectile> projectiles;
     protected List<Enemy> enemies;
     protected Player player;
@@ -22,7 +29,12 @@ public abstract class Room : IDraw
         this.GenerateRoom();
     }
 
-
+    /// <summary>
+    /// Returns the left-top world position for any tile position
+    /// </summary>
+    /// <param name="coords"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public Vector2 GetTilePos(Vector2 coords)
     {
         if (float.IsNaN(coords.X) || float.IsNaN(coords.Y))
@@ -31,29 +43,43 @@ public abstract class Room : IDraw
             throw new ArgumentOutOfRangeException();
         return new Vector2((int)(coords.X * Tile.GetSize().X), (int)(coords.Y * Tile.GetSize().Y));
     }
-    public virtual Tile GetTile(Vector2 coords)
+    public Tile GetTileFloor(Vector2 coords)
+    {
+        return GetTile(coords).floor;
+    }
+    public Tile GetTileDecoration(Vector2 coords)
+    {
+        return GetTile(coords).decor;
+    }
+    public Tile GetTileInteractable(Vector2 coords)
     {
         if (float.IsNaN(coords.X) || float.IsNaN(coords.Y))
-            return new TileWall(WallTypes.BASIC);
+            throw new ArgumentOutOfRangeException();
         if (coords.X >= Dimensions.X * Tile.GetSize().X || coords.Y >= Dimensions.Y * Tile.GetSize().Y || coords.X < 0 || coords.Y < 0)
-            return new TileWall(WallTypes.BASIC);
-        return RoomMap[(int)(coords.X / Tile.GetSize().X), (int)(coords.Y / Tile.GetSize().Y)];
+            throw new ArgumentOutOfRangeException();
+
+        (Tile, Tile) t = GetTile(coords);
+        if (t.Item2 is IInteractable)
+            return t.Item2;
+        else if (t.Item1 is IInteractable)
+            return t.Item1;
+
+        return null;
     }
-    public virtual bool AddTile(Tile tile, Vector2 position)
+    public (Tile floor, Tile decor) GetTile(Vector2 coords)
     {
-        try
-        {
-            RoomMap[(int)position.X, (int)position.Y] = tile;
-            return true;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
+        if (float.IsNaN(coords.X) || float.IsNaN(coords.Y))
+            return new(Tile.NoTile, Tile.NoTile);
+        if (coords.X >= Dimensions.X * Tile.GetSize().X || coords.Y >= Dimensions.Y * Tile.GetSize().Y || coords.X < 0 || coords.Y < 0)
+            return new(Tile.NoTile, Tile.NoTile);
+
+        return (roomFloor[(int)(coords.X / Tile.GetSize().X), (int)(coords.Y / Tile.GetSize().Y)],
+                roomDecorations[(int)(coords.X / Tile.GetSize().X), (int)(coords.Y / Tile.GetSize().Y)]);
     }
-    public virtual void AddEnemy(Enemy enemy)
+    public bool ShouldCollideAt(Vector2 coords)
     {
-        enemies.Add(enemy);
+        return (this.GetTileFloor(coords)?.DoCollision ?? false) ||
+               (this.GetTileDecoration(coords)?.DoCollision ?? false);
     }
     public virtual void ResetRoom()
     {
@@ -61,12 +87,13 @@ public abstract class Room : IDraw
         this.GenerateRoom();
     }
 
-    public void Update()
+    /* === Update methods === */
+    public virtual void Update()
     {
         this.UpdateProjectiles();
         this.UpdateEnemies();
     }
-    protected void UpdateProjectiles()
+    protected virtual void UpdateProjectiles()
     {
         for (int i = projectiles.Count - 1; i >= 0; i--)
         {
@@ -78,7 +105,7 @@ public abstract class Room : IDraw
                 projectiles.RemoveAt(i);
                 continue;
             }
-            if (this.GetTile(projectiles[i].GetCircleCenter()).DoCollision == true)
+            if (this.ShouldCollideAt(projectiles[i].GetCircleCenter()))
             {
                 projectiles.RemoveAt(i);
             }
@@ -86,7 +113,7 @@ public abstract class Room : IDraw
         for (int i = player.Projectiles.Count - 1; i >= 0; i--)
         {
             player.Projectiles[i].Update();
-            if (this.GetTile(player.Projectiles[i].GetCircleCenter()).DoCollision == true)
+            if (this.ShouldCollideAt(player.Projectiles[i].GetCircleCenter()))
             {
                 player.Projectiles.RemoveAt(i);
                 continue;
@@ -107,7 +134,7 @@ public abstract class Room : IDraw
 
         }
     }
-    protected void UpdateEnemies()
+    protected virtual void UpdateEnemies()
     {
         foreach (Enemy enemy in enemies)
         {
@@ -118,19 +145,58 @@ public abstract class Room : IDraw
         }
 
     }
+
+    /* === Generation methods === */
     protected abstract void GenerateRoom();
+    protected virtual void GenerateRoomBase()
+    {
+        this.ClearRoom();
+        this.roomFloor = new Tile[(int)Dimensions.X, (int)Dimensions.Y];
+        this.roomDecorations = new Tile[(int)Dimensions.X, (int)Dimensions.Y];
+
+        for (int i = 1; i < Dimensions.X - 1; i++)
+            for (var j = 1; j < Dimensions.Y - 1; j++)
+                roomFloor[i, j] = new TileFloor(FloorTypes.BASIC);
+
+        for (int i = 0; i < Dimensions.X; i++)
+        {
+            roomFloor[i, 0] = new TileWall(WallTypes.BASIC);
+            roomFloor[i, (int)Dimensions.Y - 1] = new TileWall(WallTypes.BASIC);
+        }
+
+        for (int i = 0; i < Dimensions.Y; i++)
+        {
+            roomFloor[0, i] = new TileWall(WallTypes.BASIC);
+            roomFloor[(int)Dimensions.X - 1, i] = new TileWall(WallTypes.BASIC);
+        }
+    }
     protected virtual void ClearRoom()
     {
         this.projectiles.Clear();
         this.enemies.Clear();
     }
-
+    public virtual bool AddTile(Tile tile, Vector2 position)
+    {
+        try
+        {
+            roomFloor[(int)position.X, (int)position.Y] = tile;
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+    public virtual void AddEnemy(Enemy enemy)
+    {
+        enemies.Add(enemy);
+    }
     public virtual void Draw(SpriteBatch spriteBatch)
     {
         for (int i = 0; i < Dimensions.X; i++)
             for (var j = 0; j < Dimensions.Y; j++)
             {
-                Tile t = RoomMap[i, j];
+                Tile t = roomFloor[i, j];
                 spriteBatch.Draw(t.Sprite, new Vector2(i * Tile.GetSize().X, j * Tile.GetSize().Y), Color.White);
             }
 

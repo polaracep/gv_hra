@@ -59,9 +59,10 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		}
 		if (mouseState.RightButton == ButtonState.Pressed)
 		{
-			if (room.GetTile(InteractionPoint) is IInteractable)
+			Tile t = room.GetTileInteractable(InteractionPoint);
+			if (t != null)
 			{
-				IInteractable tile = (IInteractable)room.GetTile(InteractionPoint);
+				IInteractable tile = (IInteractable)t;
 				tile.Interact(this, room);
 			}
 		}
@@ -72,7 +73,7 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		if (dx != 0)
 		{
 			newPosition.X += dx;
-			if (!room.GetTile(newPosition).DoCollision && !room.GetTile(newPosition + Size).DoCollision && !room.GetTile(new Vector2(newPosition.X + Size.X, newPosition.Y)).DoCollision && !room.GetTile(new Vector2(newPosition.X, newPosition.Y + Size.Y)).DoCollision)
+			if (!room.ShouldCollideAt(newPosition) && !room.ShouldCollideAt(newPosition + Size) && !room.ShouldCollideAt(new Vector2(newPosition.X + Size.X, newPosition.Y)) && !room.ShouldCollideAt(new Vector2(newPosition.X, newPosition.Y + Size.Y)))
 				Position.X = newPosition.X;
 		}
 		newPosition = Position;
@@ -80,7 +81,7 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		if (dy != 0)
 		{
 			newPosition.Y += dy;
-			if (!room.GetTile(newPosition).DoCollision && !room.GetTile(newPosition + Size).DoCollision && !room.GetTile(new Vector2(newPosition.X + Size.X, newPosition.Y)).DoCollision && !room.GetTile(new Vector2(newPosition.X, newPosition.Y + Size.Y)).DoCollision)
+			if (!room.ShouldCollideAt(newPosition) && !room.ShouldCollideAt(newPosition + Size) && !room.ShouldCollideAt(new Vector2(newPosition.X + Size.X, newPosition.Y)) && !room.ShouldCollideAt(new Vector2(newPosition.X, newPosition.Y + Size.Y)))
 				Position.Y = newPosition.Y;
 		}
 		Vector2 screenMousePos = new Vector2(mouseState.X, mouseState.Y);
