@@ -40,7 +40,7 @@ public class RoomEmpty : Room, IDraw
     {
         for (int i = 1; i <= 5; i++)
         {
-            this.AddEnemy(new RangedEnemy(new Vector2(Tile.GetSize().X * i, Tile.GetSize().Y)));
+            this.AddEnemy(new EnemyZdena(new Vector2(Tile.GetSize().X * i, Tile.GetSize().Y)));
         }
     }
 

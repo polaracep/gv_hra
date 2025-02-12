@@ -112,7 +112,7 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 	public Projectile Attack()
 	{
 		LastAttackTime = DateTime.UtcNow;
-		Projectile projectile = new Projectile(Position + Size / 2, Direction, AttackDmg);
+		Projectile projectile = new ProjectilePee(Position + Size / 2, Direction, AttackDmg);
 		projectile.ShotByPlayer = true;
 
 		return projectile;

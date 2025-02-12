@@ -13,13 +13,12 @@ public abstract class Enemy : Entity, IRecieveDmg, IDealDmg
     public int XpValue { get; set; }
 
     public abstract void Draw(SpriteBatch spriteBatch);
-    public abstract void RecieveDmg();
     public abstract bool ReadyToAttack();
     public abstract void Update(Vector2 playerPosition);
     public abstract bool IsDead();
     public abstract Projectile Attack();
 
-    public void RecieveDmg(int damage)
+    public virtual void RecieveDmg(int damage)
     {
         Hp -= damage;
     }
