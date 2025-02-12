@@ -13,26 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Fonts/AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
-/importer:
-/processor:
-/build:Fonts/AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
-
-#begin Fonts/AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
-/importer:
-/processor:
-/build:Fonts/AtkinsonHyperlegibleNext-Italic-VariableFont_wght.ttf
-
-#begin Fonts/AtkinsonHyperlegibleNext-VariableFont_wght.ttf
-/importer:
-/processor:
-/build:Fonts/AtkinsonHyperlegibleNext-VariableFont_wght.ttf
-
-#begin Fonts/AtkinsonHyperlegibleNext-VariableFont_wght.ttf
-/importer:
-/processor:
-/build:Fonts/AtkinsonHyperlegibleNext-VariableFont_wght.ttf
-
 #begin Sounds/soundtrack.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

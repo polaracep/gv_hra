@@ -41,7 +41,9 @@ internal class ScreenGame : Screen
 
         // Play the selected song reference.
         MediaPlayer.Play(Song);
-        MediaPlayer.Volume = 0.1f;
+        MediaPlayer.Volume = 0.01f;
+
+        Level one = new Level(player, 7, 5);
     }
 
     public override void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager graphics)

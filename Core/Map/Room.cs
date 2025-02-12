@@ -8,10 +8,11 @@ namespace TBoGV;
 
 public enum Directions
 {
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN,
+    LEFT = 0,
+    RIGHT = 1,
+    UP = 2,
+    DOWN = 3,
+    ENTRY = 4,
 }
 
 public abstract class Room : IDraw
@@ -45,6 +46,8 @@ public abstract class Room : IDraw
         this.Position = pos;
         if (entryDir != null)
             this.DoorDirectons.Add((Directions)entryDir);
+        else
+            this.DoorDirectons.Add(Directions.ENTRY);
     }
     public Room(Vector2 dimensions, Vector2 pos, Player p) : this(dimensions, pos, null, p) { }
 
