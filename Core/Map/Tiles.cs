@@ -14,6 +14,8 @@ public abstract class Tile
     // Vsechny tiles50x50.
     protected static Vector2 tileSize = new Vector2(50, 50);
 
+    public static readonly TileVoid NoTile = new TileVoid();
+
     protected Tile(bool collide)
     {
         DoCollision = collide;
@@ -29,6 +31,10 @@ public abstract class Tile
     }
 }
 
+public class TileVoid : Tile
+{
+    public TileVoid() : base(false) { }
+}
 public class TileFloor : Tile, IDraw
 {
     public TileFloor(FloorTypes floor) : base(false)
