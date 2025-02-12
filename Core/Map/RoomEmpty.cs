@@ -1,15 +1,14 @@
-using System.Net.NetworkInformation;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace TBoGV;
 
 public class RoomEmpty : Room, IDraw
 {
-    public RoomEmpty(Vector2 dimensions, Player p) : base(dimensions, p) { }
-    public RoomEmpty(Player p) : base(new Vector2(13, 17), p) { }
+    public RoomEmpty(Vector2 dimensions, Vector2 pos, Player p) : base(dimensions, pos, p) { }
+    public RoomEmpty(Vector2 pos, Player p) : base(new Vector2(13, 17), pos, p) { }
+    public RoomEmpty(Vector2 pos, Directions dir, Player p) : base(new Vector2(13, 17), pos, dir, p) { }
 
-    protected override void GenerateRoom()
+    public override void GenerateRoom()
     {
         base.GenerateRoomBase();
         this.AddTile(new TileHeal(), new Vector2(5, 5));
@@ -19,7 +18,7 @@ public class RoomEmpty : Room, IDraw
         player.Position = this.GetTilePos(Vector2.One);
     }
 
-    protected void GenerateEnemies()
+    protected override void GenerateEnemies()
     {
         for (int i = 1; i <= 5; i++)
         {

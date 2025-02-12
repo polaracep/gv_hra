@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
 using TBoGV.Core;
 using Microsoft.Xna.Framework.Media;
 namespace TBoGV;
@@ -27,7 +26,8 @@ internal class ScreenGame : Screen
     public override void BeginRun(GraphicsDeviceManager graphics)
     {
         player = new Player();
-        r = new RoomEmpty(player);
+        r = new RoomEmpty(Vector2.One, player);
+        r.GenerateRoom();
         UI = new UI();
         _camera = new Camera(graphics.GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
         inGameMenu = new InGameMenu(graphics.GraphicsDevice.Viewport);
