@@ -86,6 +86,14 @@ internal class ScreenGame : Screen
             UI.Update(player);
             _camera.Update(player.Position + player.Size / 2);
         }
+        else if (MediaPlayer.State == MediaState.Playing)
+        {
+            MediaPlayer.Pause();
+        }
+        Frame++;
+
+        // Loop
+
     }
     KeyboardState previousKeyboardState;
 

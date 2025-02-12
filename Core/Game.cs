@@ -14,7 +14,7 @@ public class TBoGVGame : Game
     public TBoGVGame()
     {
         _graphics = new GraphicsDeviceManager(this);
-        _graphics.ToggleFullScreen();
+
         screenCurrent = screenGame = new ScreenGame();
 
         Content.RootDirectory = "Content";
