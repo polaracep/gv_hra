@@ -71,7 +71,11 @@ public static class FontManager
 	{
 		List<string> names = new List<string>
 		{
-			"font"
+			"font",
+			"Arial8",
+			"Arial12",
+			"Arial16",
+			"Arial24",
 		};
 
 		foreach (string name in names)

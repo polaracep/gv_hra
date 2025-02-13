@@ -30,7 +30,7 @@ internal class ScreenGame : Screen
         r.GenerateRoom();
         UI = new UI();
         _camera = new Camera(graphics.GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
-        inGameMenu = new InGameMenu(graphics.GraphicsDevice.Viewport);
+        inGameMenu = new InGameMenuInventory(graphics.GraphicsDevice.Viewport);
 
         // check the current state of the MediaPlayer.
         Song = SongManager.GetSong("soundtrack");
