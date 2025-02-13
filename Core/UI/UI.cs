@@ -53,7 +53,7 @@ namespace TBoGV.Core
 
             Vector2 screenSize = new Vector2(GraphicsDeviceManager.DefaultBackBufferWidth, GraphicsDeviceManager.DefaultBackBufferHeight);
             itemContainer = player.ItemContainers[player.selectedItemIndex];
-            itemContainer.Position = new Vector2(screenSize.X - ItemContainer.Size.X - 20, 20); 
+            itemContainer.SetPosition( new Vector2(screenSize.X - ItemContainer.Size.X - 20, 20)); 
 
         }
 

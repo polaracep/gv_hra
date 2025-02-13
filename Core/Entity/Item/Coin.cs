@@ -7,8 +7,6 @@ namespace TBoGV;
 internal class Coin : Item, IDraw
 {
 	static Texture2D Sprite;
-	public Vector2 Position;
-	public Vector2 Size;
 	public Coin()
 	{
 		Sprite = TextureManager.GetTexture("coin");

@@ -77,7 +77,6 @@ public class TileDoor : Tile, IDraw, IInteractable
                 break;
         }
     }
-
     public void Interact(Entity e, Room r)
     {
         // put player in the left-top corne
@@ -100,5 +99,4 @@ public class TileHeal : Tile, IDraw, IInteractable
             p.Heal(1);
         }
     }
-
 }

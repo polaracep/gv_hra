@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TBoGV.Core.Entity.Item;
 
 namespace TBoGV;
 
@@ -13,6 +14,11 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 	public int Xp { get; set; }
 	public int AttackSpeed { get; set; }
 	public int AttackDmg { get; set; }
+	public int ItemCapacity { get; set; }
+	public int Hp { get; set; }
+	public int MaxHp { get; set; }
+	public int Coins { get; set; }
+	private Dictionary<StatTypes, int> BaseStats { get; set; }
 	public DateTime LastAttackTime { get; set; }
 	public DateTime LastRecievedDmgTime { get; set; }
 	public int InvulnerabilityFrame = 1000;
@@ -20,29 +26,64 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 	public List<ItemContainer> ItemContainers;
     public int selectedItemIndex = 0;
 	private int PrevScrollWheelValue;
-    public int ItemCapacity { get; set; }
-	public int Hp { get; set; }
-	public int MaxHp { get; set; }
-	public int Coins { get; set; }
 	public Player(Vector2 position)
 	{
+		BaseStats = new Dictionary<StatTypes, int>()
+		{
+			{ StatTypes.MAX_HP, 9 },         
+			{ StatTypes.DAMAGE, 1 },          
+			{ StatTypes.PROJECTILE_COUNT, 1 }, 
+			{ StatTypes.XP_GAIN, 100 },        // Získávání XP v %  
+			{ StatTypes.ATTACK_SPEED, 100 },   
+			{ StatTypes.MOVEMENT_SPEED, 4 }    
+		};
+
 		Position = position;
 		Size = new Vector2(50, 50);
-		Hp = MaxHp = 9;
-		MovementSpeed = 4;
 		Projectiles = new List<Projectile>();
-        ItemContainers = new List<ItemContainer>() {new ItemContainer(), new ItemContainer() , new ItemContainer()};
+		ItemContainer kontak = new();
+        kontak.Item = new ItemDoping(position);
+        ItemContainers = new List<ItemContainer>() {new ItemContainer(), new ItemContainer() , new ItemContainer(), kontak};
 		
-		AttackSpeed = 100;
-		AttackDmg = 1;
 		Sprite = TextureManager.GetTexture("vitek-nobg");
 		Coins = 1;
 		ItemCapacity = 3;
+		SetStats();
 	}
 
 	public Player() : this(Vector2.One) { }
 
 	Vector2 InteractionPoint = Vector2.Zero;
+	public void SetStats()
+	{
+		Dictionary<StatTypes, int> finalStats = new Dictionary<StatTypes, int>(BaseStats);
+
+		foreach (var container in ItemContainers)
+		{
+			if (container.Item != null)
+			{
+				foreach (var stat in container.Item.Stats)
+				{
+					if (finalStats.ContainsKey(stat.Key))
+					{
+						finalStats[stat.Key] += stat.Value;
+					}
+					else
+					{
+						finalStats[stat.Key] = stat.Value; 
+					}
+				}
+			}
+		}
+
+		// Aktualizace hráčských atributů podle finalStats
+		MaxHp = finalStats[StatTypes.MAX_HP];
+		Hp = Math.Min(Hp, MaxHp); // Zajistíme, že HP nepřesáhne MaxHp
+		AttackDmg = finalStats[StatTypes.DAMAGE];
+		AttackSpeed = finalStats[StatTypes.ATTACK_SPEED];
+		MovementSpeed = finalStats[StatTypes.MOVEMENT_SPEED];
+	}
+
 	public void Update(KeyboardState keyboardState, MouseState mouseState, Matrix transform, Room room)
 	{
 		int dx = 0, dy = 0;
