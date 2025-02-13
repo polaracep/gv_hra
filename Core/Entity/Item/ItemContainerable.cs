@@ -19,7 +19,6 @@ public enum StatTypes : int
     DAMAGE = 1,
     PROJECTILE_COUNT = 2,
     XP_GAIN = 3,
-    LIFE_STEAL = 4,
     ATTACK_SPEED = 5,
     MOVEMENT_SPEED = 6,
 }
@@ -27,5 +26,6 @@ public enum EffectTypes : int
 { 
     MAP_REVEAL = 0,
     ARMOR = 1,
+	LIFE_STEAL = 2,
 }
 

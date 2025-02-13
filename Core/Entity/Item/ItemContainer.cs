@@ -11,7 +11,7 @@ public class ItemContainer : IDraw
     public Vector2 Position { get; private set; }
     public static Vector2 Size;
     public bool Selected;
-    public Item Item { get; set; }
+    public ItemContainerable Item { get; set; }
     public ItemContainer()
     {
         SpriteContainer = TextureManager.GetTexture("container");
