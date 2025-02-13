@@ -24,7 +24,10 @@ public static class TextureManager
             "korenovy_vezen",
             "gymvod",
             "platina",
-			"coin"
+			"coin",
+            "whiteSquare",
+            "containerBorder",
+            "container"
         };
 
         foreach (string name in names)

@@ -9,14 +9,18 @@ namespace TBoGV;
 public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 {
 	static Texture2D Sprite;
-	int Level { get; set; }
-	int Xp { get; set; }
+	public int Level { get; set; }
+	public int Xp { get; set; }
 	public int AttackSpeed { get; set; }
 	public int AttackDmg { get; set; }
 	public DateTime LastAttackTime { get; set; }
 	public DateTime LastRecievedDmgTime { get; set; }
 	public int InvulnerabilityFrame = 1000;
 	public List<Projectile> Projectiles { get; set; }
+	public List<ItemContainer> ItemContainers;
+    public int selectedItemIndex = 0;
+	private int PrevScrollWheelValue;
+    public int ItemCapacity { get; set; }
 	public int Hp { get; set; }
 	public int MaxHp { get; set; }
 	public int Coins { get; set; }
@@ -27,10 +31,13 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		Hp = MaxHp = 9;
 		MovementSpeed = 4;
 		Projectiles = new List<Projectile>();
-		AttackSpeed = 200;
+        ItemContainers = new List<ItemContainer>() {new ItemContainer(), new ItemContainer() , new ItemContainer()};
+		
+		AttackSpeed = 100;
 		AttackDmg = 1;
 		Sprite = TextureManager.GetTexture("vitek-nobg");
 		Coins = 1;
+		ItemCapacity = 3;
 	}
 
 	public Player() : this(Vector2.One) { }
@@ -67,10 +74,10 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 				tile.Interact(this, room);
 			}
 		}
+		UpdateContainers(mouseState);
+        /* === */
 
-		/* === */
-
-		Vector2 newPosition = Position;
+        Vector2 newPosition = Position;
 		if (dx != 0)
 		{
 			newPosition.X += dx;
@@ -99,8 +106,30 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 			Projectiles.Add(Attack());
 	}
 
+	public void UpdateContainers(MouseState mouseState)
+	{
+        int scrollDelta = PrevScrollWheelValue - mouseState.ScrollWheelValue;
+        if (scrollDelta > 0)
+        {
+            selectedItemIndex = (selectedItemIndex + 1) % ItemContainers.Count;
+            SetActiveItemContainer();
+        }
+        else if (scrollDelta < 0)
+        {
+            selectedItemIndex = (selectedItemIndex - 1 + ItemContainers.Count) % ItemContainers.Count;
+            SetActiveItemContainer();
+        }
+		PrevScrollWheelValue = mouseState.ScrollWheelValue;
+    }
+    private void SetActiveItemContainer()
+    {
+        for (int i = 0; i < ItemContainers.Count; i++)
+        {
+            ItemContainers[i].Selected = (i == selectedItemIndex);
+        }
+    }
 
-	public void Draw(SpriteBatch spriteBatch)
+    public void Draw(SpriteBatch spriteBatch)
 	{
 		spriteBatch.Draw(Sprite,
 			new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)),
@@ -132,8 +161,20 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 	public void Kill(int xpGain)
 	{
 		Xp += xpGain;
+		if(Xp >= XpForLevel())
+		{
+			LevelUp();
+		}
 	}
-
+	public int XpForLevel()
+	{
+		return 5 + Level*2;
+	}
+	private void LevelUp()
+	{
+		Level += 1;
+		Xp = 0;
+	}
 	public void Heal(uint healAmount)
 	{
 		if (Hp < MaxHp)
@@ -141,5 +182,6 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 			Hp += (int)healAmount;
 		}
 	}
+
 }
 

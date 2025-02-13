@@ -16,7 +16,7 @@ internal class EnemyZdena : EnemyRanged
 		Position = position;
 		Hp = 3;
 		MovementSpeed = 4;
-		AttackSpeed = 300;
+		AttackSpeed = 2500;
 		AttackDmg = 1;
 		Sprite = TextureManager.GetTexture("korenovy_vezen");
 		Size = new Vector2(Sprite.Width, Sprite.Height);

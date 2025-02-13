@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TBoGV.Core;
 
 namespace TBoGV;
 
@@ -48,7 +47,7 @@ public class TBoGVGame : Game
         // exit coded
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             Exit();
-        screenCurrent.Update(gameTime);
+        screenCurrent.Update(gameTime, _graphics);
         base.Update(gameTime);
     }
 

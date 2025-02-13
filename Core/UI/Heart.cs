@@ -9,13 +9,13 @@ internal class Heart : IDraw
     static Texture2D SpriteFull;
     static Texture2D SpriteBroken;
     public Vector2 Position;
-    public Vector2 Size;
+    public static Vector2 Size;
     public Heart()
     {
         SpriteFull = TextureManager.GetTexture("admiration");
         SpriteBroken = TextureManager.GetTexture("taunt");
         Broken = false;
-        Size = new Vector2(25, 40);
+        Size = new Vector2(15, 28);
     }
     public void Draw(SpriteBatch spriteBatch)
     {

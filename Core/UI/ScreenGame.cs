@@ -63,7 +63,6 @@ internal class ScreenGame : Screen
         UI.Draw(_spriteBatch);
         if (inGameMenu.Active)
         {
-            inGameMenu.Update(graphics.GraphicsDevice.Viewport);
             inGameMenu.Draw(_spriteBatch);
         }
 
@@ -74,7 +73,7 @@ internal class ScreenGame : Screen
         throw new NotImplementedException();
     }
 
-    public override void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime, GraphicsDeviceManager graphics)
     {
         previousKeyboardState = keyboardState;
         mouseState = Mouse.GetState();
@@ -85,12 +84,16 @@ internal class ScreenGame : Screen
         {
             player.Update(keyboardState, mouseState, _camera.Transform, r);
             r.Update();
-            UI.Update(player);
+            UI.Update(player, graphics);
             _camera.Update(player.Position + player.Size / 2);
         }
-        else if (MediaPlayer.State == MediaState.Playing)
+        else
         {
-            MediaPlayer.Pause();
+            inGameMenu.Update(graphics.GraphicsDevice.Viewport, player, mouseState);
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Pause();
+            }
         }
         Frame++;
 
