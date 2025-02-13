@@ -6,7 +6,7 @@ public class RoomEmpty : Room, IDraw
 {
     public RoomEmpty(Vector2 pos, Directions dir, Player p) : base(new Vector2(13, 17), pos, dir, p) { }
     public RoomEmpty(Vector2 dimensions, Vector2 pos, Player p) : base(dimensions, pos, p) { }
-    public RoomEmpty(Vector2 dimensions, Player p) : base(dimensions, Vector2.Zero, p) { }
+    public RoomEmpty(Vector2 dimensions, Player p) : base(dimensions, Vector2.One, p) { }
     //public RoomEmpty(Player p) :
 
 

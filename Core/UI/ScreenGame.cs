@@ -26,7 +26,7 @@ internal class ScreenGame : Screen
     public override void BeginRun(GraphicsDeviceManager graphics)
     {
         player = new Player();
-        r = new RoomEmpty(Vector2.One, player);
+        r = new RoomEmpty(new Vector2(10, 10), player);
         r.GenerateRoom();
         UI = new UI();
         _camera = new Camera(graphics.GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
