@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TBoGV.Core.Entity.Item;
 
 namespace TBoGV;
 
@@ -31,7 +32,9 @@ public class Player : Entity, IRecieveDmg, IDealDmg, IDraw
 		Hp = MaxHp = 9;
 		MovementSpeed = 4;
 		Projectiles = new List<Projectile>();
-        ItemContainers = new List<ItemContainer>() {new ItemContainer(), new ItemContainer() , new ItemContainer()};
+		ItemContainer kontak = new();
+        kontak.Item = new ItemDoping(position);
+        ItemContainers = new List<ItemContainer>() {new ItemContainer(), new ItemContainer() , new ItemContainer(), kontak};
 		
 		AttackSpeed = 100;
 		AttackDmg = 1;

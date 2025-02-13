@@ -8,7 +8,7 @@ public class ItemContainer : IDraw
 {
     static Texture2D SpriteContainer;
     static Texture2D SpriteContainerBorder;
-    public Vector2 Position;
+    public Vector2 Position { get; private set; }
     public static Vector2 Size;
     public bool Selected;
     public Item Item { get; set; }
@@ -26,6 +26,12 @@ public class ItemContainer : IDraw
             Item.Draw(spriteBatch);
         if (Selected)
             spriteBatch.Draw(SpriteContainerBorder, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), new Color(200, 30, 30, 180));
+    }
+    public void SetPosition(Vector2 postition)
+    {
+        Position = postition;
+        if(!IsEmpty())
+            Item.Position = Position;
     }
     public bool IsEmpty()
     {
