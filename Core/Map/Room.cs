@@ -19,10 +19,10 @@ public abstract class Room : IDraw
 {
     public Vector2 Dimensions { get; protected set; }
     /// <summary>
-    /// Position used in level generation
+    /// Map position used in level generation
     /// </summary>
     public Vector2 Position { get; protected set; }
-    public List<Directions> DoorDirectons = new List<Directions>();
+    public List<Directions> DoorDirections = new List<Directions>();
     /// <summary>
     /// Use for room layout
     /// </summary>
@@ -45,9 +45,9 @@ public abstract class Room : IDraw
         this.Dimensions = dimensions;
         this.Position = pos;
         if (entryDir != null)
-            this.DoorDirectons.Add((Directions)entryDir);
+            this.DoorDirections.Add((Directions)entryDir);
         else
-            this.DoorDirectons.Add(Directions.ENTRY);
+            this.DoorDirections.Add(Directions.ENTRY);
     }
     public Room(Vector2 dimensions, Vector2 pos, Player p) : this(dimensions, pos, null, p) { }
 

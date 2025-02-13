@@ -26,7 +26,7 @@ internal class ScreenGame : Screen
     public override void BeginRun(GraphicsDeviceManager graphics)
     {
         player = new Player();
-        r = new RoomEmpty(Vector2.One, player);
+        r = new RoomEmpty(new Vector2(10, 10), player);
         r.GenerateRoom();
         UI = new UI();
         _camera = new Camera(graphics.GraphicsDevice.Viewport, (int)(r.Dimensions.X * Tile.GetSize().X), (int)(r.Dimensions.Y * Tile.GetSize().Y));
@@ -43,7 +43,7 @@ internal class ScreenGame : Screen
         MediaPlayer.Play(Song);
         MediaPlayer.Volume = 0.01f;
 
-        Level one = new Level(player, 7, 5);
+        Level one = new Level(player, 7, 10);
     }
 
     public override void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager graphics)
