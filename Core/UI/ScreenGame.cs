@@ -43,7 +43,7 @@ internal class ScreenGame : Screen
         MediaPlayer.Play(Song);
         MediaPlayer.Volume = 0.01f;
 
-        Level one = new Level(player, 7, 5);
+        Level one = new Level(player, 7, 10);
     }
 
     public override void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager graphics)
