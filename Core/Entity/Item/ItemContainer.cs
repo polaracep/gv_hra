@@ -4,12 +4,11 @@ using System;
 
 namespace TBoGV;
 
-public class ItemContainer : IDraw
+public class ItemContainer : Entity, IDraw
 {
     static Texture2D SpriteContainer;
     static Texture2D SpriteContainerBorder;
-    public Vector2 Position { get; private set; }
-    public static Vector2 Size;
+
     public bool Selected;
     public ItemContainerable Item { get; set; }
     public ItemContainer()
@@ -27,9 +26,9 @@ public class ItemContainer : IDraw
         if (Selected)
             spriteBatch.Draw(SpriteContainerBorder, new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Size.X), Convert.ToInt32(Size.Y)), new Color(200, 30, 30, 180));
     }
-    public void SetPosition(Vector2 postition)
+    public void SetPosition(Vector2 position)
     {
-        Position = postition;
+        Position = position;
         if(!IsEmpty())
             Item.Position = Position;
     }

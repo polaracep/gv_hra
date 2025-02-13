@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 namespace TBoGV;
 
 public abstract class ItemContainerable : Item, IInteractable
