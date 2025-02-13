@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using TBoGV;
 
@@ -37,6 +38,7 @@ public class LevelCreator
 {
 
     private List<RoomCandidate> Candidates = new List<RoomCandidate>();
+    private List<Room> RoomList;
     private int Size;
     private int RoomCount;
     private Vector2 StartPos;
@@ -47,17 +49,47 @@ public class LevelCreator
     public LevelCreator(List<Room> roomList, int size, Vector2 startPos, Player player)
     {
         this.Size = size;
+        this.RoomList = roomList;
         this.RoomCount = roomList.Count;
         this.StartPos = startPos;
         this.Player = player;
     }
 
+    private (Vector2 o, Vector2 b) GetOffsetAndSize(RoomCandidate[,] rooms)
+    {
+        int x = 0, y = 0;
+        int _x = int.MaxValue, _y = int.MaxValue;
+        foreach (RoomCandidate r in rooms)
+        {
+            if (r == null)
+                continue;
+
+            if (r.Position.X > x)
+                x = (int)r.Position.X;
+            if (r.Position.Y > y)
+                y = (int)r.Position.Y;
+            if (r.Position.X < _x)
+                _x = (int)r.Position.X;
+            if (r.Position.Y < _y)
+                _y = (int)r.Position.Y;
+        }
+        return (new Vector2(_x, _y), new Vector2(x - _x + 1, y - _y + 1));
+    }
+
     public Room[,] GenerateLevel()
     {
         RoomCandidate[,] candidateMap = PopulateCandidates();
+        (Vector2, Vector2) trucSize = GetOffsetAndSize(candidateMap);
 
+        Room[,] finalMap = new Room[(int)trucSize.Item2.Y, (int)trucSize.Item2.X];
+
+        Random rand = new Random();
         foreach (RoomCandidate c in candidateMap)
         {
+            if (c == null)
+                continue;
+
+            Room placing = RoomList[rand.Next(RoomList.Count)];
 
         }
         return null;
